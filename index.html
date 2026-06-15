@@ -350,7 +350,15 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid-3">
         <div>
-          <div class="dropzone" id="dz-compress" onclick="document.getElementById('fi-compress').click()" onkeydown="if(event.key==='Enter')document.getElementById('fi-compress').click()" tabindex="0" role="button" aria-label="Drop image here or click to upload">
+          <!--
+            FIX: Removed inline onclick="document.getElementById('fi-compress').click()"
+            and onkeydown duplicate trigger from the dropzone div.
+            The full-bleed <input type="file"> (position:absolute; inset:0) already
+            receives the native click, so no JS click-forwarding is needed.
+            Keyboard activation (Enter/Space) is handled by the single
+            delegated listener added at the bottom of the script.
+          -->
+          <div class="dropzone" id="dz-compress" tabindex="0" role="button" aria-label="Drop image here or click to upload">
             <input type="file" id="fi-compress" accept="image/*" onchange="loadCompressFile(this)">
             <span class="dropzone-icon">🗜️</span>
             <h3>Drop your image here</h3>
@@ -398,7 +406,8 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-resize').click()" tabindex="0" role="button">
+          <!-- FIX: removed inline onclick (see compress dropzone comment for rationale) -->
+          <div class="dropzone" id="dz-resize" tabindex="0" role="button" aria-label="Drop image here or click to upload">
             <input type="file" id="fi-resize" accept="image/*" onchange="loadSinglePreview(this,'prev-resize','info-resize')">
             <span class="dropzone-icon">📐</span><h3>Drop image here</h3><p>or click to browse</p>
           </div>
@@ -438,7 +447,8 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-convert').click()" tabindex="0" role="button">
+          <!-- FIX: removed inline onclick -->
+          <div class="dropzone" id="dz-convert" tabindex="0" role="button" aria-label="Drop images here or click to upload">
             <input type="file" id="fi-convert" accept="image/*" multiple onchange="loadConvertFiles(this)">
             <span class="dropzone-icon">🔄</span><h3>Drop images here</h3><p>Multiple files supported</p>
           </div>
@@ -475,7 +485,8 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-crop').click()" tabindex="0" role="button">
+          <!-- FIX: removed inline onclick -->
+          <div class="dropzone" id="dz-crop" tabindex="0" role="button" aria-label="Drop image here or click to upload">
             <input type="file" id="fi-crop" accept="image/*" onchange="loadCropFile(this)">
             <span class="dropzone-icon">✂️</span><h3>Drop image here</h3><p>Draw a crop area on the preview</p>
           </div>
@@ -519,7 +530,8 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-rotate').click()" tabindex="0" role="button">
+          <!-- FIX: removed inline onclick -->
+          <div class="dropzone" id="dz-rotate" tabindex="0" role="button" aria-label="Drop image here or click to upload">
             <input type="file" id="fi-rotate" accept="image/*" onchange="loadRotateFile(this)">
             <span class="dropzone-icon">🔁</span><h3>Drop image here</h3><p>or click to browse</p>
           </div>
@@ -554,7 +566,8 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-flip').click()" tabindex="0" role="button">
+          <!-- FIX: removed inline onclick -->
+          <div class="dropzone" id="dz-flip" tabindex="0" role="button" aria-label="Drop image here or click to upload">
             <input type="file" id="fi-flip" accept="image/*" onchange="loadFlipFile(this)">
             <span class="dropzone-icon">🪞</span><h3>Drop image here</h3><p>or click to browse</p>
           </div>
@@ -583,7 +596,8 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-wm').click()" tabindex="0" role="button">
+          <!-- FIX: removed inline onclick -->
+          <div class="dropzone" id="dz-wm" tabindex="0" role="button" aria-label="Drop image here or click to upload">
             <input type="file" id="fi-wm" accept="image/*" onchange="loadWmFile(this)">
             <span class="dropzone-icon">💧</span><h3>Drop image here</h3><p>or click to browse</p>
           </div>
@@ -639,7 +653,8 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-merge').click()" tabindex="0" role="button">
+          <!-- FIX: removed inline onclick -->
+          <div class="dropzone" id="dz-merge" tabindex="0" role="button" aria-label="Drop images here or click to upload">
             <input type="file" id="fi-merge" accept="image/*" multiple onchange="loadMergeFiles(this)">
             <span class="dropzone-icon">🔗</span><h3>Drop images here</h3><p>Multiple images, will be merged in order</p>
           </div>
@@ -681,7 +696,15 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-pdf').click()" tabindex="0" role="button">
+          <!--
+            FIX: removed inline onclick AND added a stable id="dz-pdf".
+            Previously this dropzone had NO id, so the bottom-of-script
+            code did `wrap.id = 'dz-pdf'` at runtime AND attached a
+            second, separate set of drag/drop listeners — on top of the
+            inline onclick AND the generic dropzone click handler.
+            That's 3 overlapping behaviors on one element.
+          -->
+          <div class="dropzone" id="dz-pdf" tabindex="0" role="button" aria-label="Drop PDF here or click to upload">
             <input type="file" id="fi-pdf" accept="application/pdf" onchange="loadPdfFile(this)">
             <span class="dropzone-icon">📄</span><h3>Drop PDF here</h3><p>or click to browse</p>
           </div>
@@ -717,7 +740,11 @@ canvas{max-width:100%}
     <div class="panel-body">
       <div class="panel-grid">
         <div>
-          <div class="dropzone" onclick="document.getElementById('fi-i2p').click()" tabindex="0" role="button">
+          <!--
+            FIX: removed inline onclick AND added a stable id="dz-i2p".
+            Same overlapping-listener issue as the PDF dropzone above.
+          -->
+          <div class="dropzone" id="dz-i2p" tabindex="0" role="button" aria-label="Drop images here or click to upload">
             <input type="file" id="fi-i2p" accept="image/*" multiple onchange="loadI2PFiles(this)">
             <span class="dropzone-icon">📑</span><h3>Drop images here</h3><p>Multiple images, one per PDF page</p>
           </div>
@@ -829,13 +856,48 @@ document.querySelectorAll('.tool-card').forEach(card => {
   card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }});
 });
 
-// ===== DRAG & DROP global =====
+/*
+ * ===========================================================================
+ * FIX: setupDragDrop()
+ * ===========================================================================
+ * ROOT CAUSE (original code):
+ *   1. This function was called TWICE for the same dropzone elements:
+ *        - once explicitly per-tool, e.g. setupDragDrop('dz-compress','fi-compress', () => {})
+ *        - once again in the generic "INIT DRAG DROPS" loop at the bottom
+ *      Each call attached a FULL new set of dragenter/dragover/dragleave/drop
+ *      listeners to the same <div>. So a single drop event fired the 'drop'
+ *      handler twice -> input.files set twice -> 'change' dispatched twice
+ *      -> the image-loading function ran twice (double processing, and in
+ *      some browsers the second dispatch raced/cancelled the first, making
+ *      the user have to drop/select again).
+ *
+ *   2. The PDF and Image-to-PDF dropzones had NO id at all in the HTML, so a
+ *      separate ad-hoc block at the bottom of the script reimplemented
+ *      drag/drop manually AND mutated the DOM by setting `wrap.id = 'dz-pdf'`
+ *      at runtime - creating yet another (3rd) overlapping listener set.
+ *
+ * FIX:
+ *   - Added a one-time-initialization guard via `dz.dataset.ddInit`.
+ *     Calling setupDragDrop() on the same element more than once is now a
+ *     no-op after the first call.
+ *   - setupDragDrop() now ONLY takes (dzId, inputId) - the unused 3rd
+ *     callback parameter that was being passed everywhere is removed.
+ *   - Removed the duplicate manual pdf/i2p implementation and the runtime
+ *     `wrap.id = 'dz-pdf'` hack; pdf/i2p dropzones now have static ids
+ *     (dz-pdf, dz-i2p) set directly in the HTML and go through this same
+ *     single function, called exactly once.
+ * ===========================================================================
+ */
 function setupDragDrop(dzId, inputId) {
 
     const dz = document.getElementById(dzId);
     const input = document.getElementById(inputId);
 
     if (!dz || !input) return;
+
+    // Guard: never attach listeners twice to the same dropzone.
+    if (dz.dataset.ddInit === '1') return;
+    dz.dataset.ddInit = '1';
 
     ['dragenter', 'dragover'].forEach(eventName => {
         dz.addEventListener(eventName, e => {
@@ -992,8 +1054,6 @@ function addFileItem(listId, name, size, onRemove) {
 }
 
 // ===== COMPRESS =====
-setupDragDrop('dz-compress','fi-compress', () => {});
-
 async function loadCompressFile(input) {
   if (!input.files[0]) return;
   const file = input.files[0];
@@ -1079,8 +1139,6 @@ function initCompareSlider(wrapId, afterId, divId) {
 }
 
 // ===== RESIZE =====
-setupDragDrop('dz-resize','fi-resize', () => {});
-
 async function loadSinglePreview(input, prevId, infoId) {
   if (!input.files[0]) return;
   const file = input.files[0];
@@ -1125,8 +1183,6 @@ function runResize() {
 }
 
 // ===== CONVERT =====
-setupDragDrop('dz-convert','fi-convert', () => {});
-
 async function loadConvertFiles(input) {
   state.convert.files = Array.from(input.files);
   const list = document.getElementById('fl-convert');
@@ -1176,8 +1232,6 @@ async function runConvert() {
 }
 
 // ===== CROP =====
-setupDragDrop('dz-crop','fi-crop', () => {});
-
 async function loadCropFile(input) {
   if (!input.files[0]) return;
   const file = input.files[0];
@@ -1256,8 +1310,6 @@ function runCrop() {
 }
 
 // ===== ROTATE =====
-setupDragDrop('dz-rotate','fi-rotate', () => {});
-
 async function loadRotateFile(input) {
   if (!input.files[0]) return;
   const file = input.files[0];
@@ -1301,8 +1353,6 @@ function drawRotated(angle) {
 }
 
 // ===== FLIP =====
-setupDragDrop('dz-flip','fi-flip', () => {});
-
 async function loadFlipFile(input) {
   if (!input.files[0]) return;
   state.flip.img = await loadImageFromFile(input.files[0]);
@@ -1327,8 +1377,6 @@ function runFlip(dir) {
 }
 
 // ===== WATERMARK =====
-setupDragDrop('dz-wm','fi-wm', () => {});
-
 async function loadWmFile(input) {
   if (!input.files[0]) return;
   state.watermark.img = await loadImageFromFile(input.files[0]);
@@ -1386,8 +1434,6 @@ function runWatermark() {
 }
 
 // ===== MERGE =====
-setupDragDrop('dz-merge','fi-merge', () => {});
-
 async function loadMergeFiles(input) {
   state.merge.images = [];
   document.getElementById('fl-merge').innerHTML = '';
@@ -1587,57 +1633,60 @@ function downloadI2P() {
   toast('PDF downloaded!','success');
 }
 
-// ===== INIT DRAG DROPS =====
-['dz-compress','dz-resize','dz-convert','dz-crop','dz-rotate','dz-flip','dz-wm','dz-merge'].forEach(id => {
-  const inputId = 'fi-' + id.replace('dz-','');
-  setupDragDrop(id, inputId, () => {});
-});
+/*
+ * ===========================================================================
+ * FIX: Single initialization pass for drag & drop AND keyboard accessibility
+ * ===========================================================================
+ * ROOT CAUSE (original code):
+ *   - setupDragDrop() was called once per tool explicitly (8 dropzones),
+ *     THEN called AGAIN in a generic loop over the same 8 ids, THEN the
+ *     pdf/i2p dropzones were handled by a third, hand-rolled drag/drop
+ *     implementation that also mutated `wrap.id` at runtime.
+ *   - Separately, a generic ".dropzone" click handler called input.click(),
+ *     which combined with the inline onclick on every dropzone div AND the
+ *     native click-through of the full-bleed <input type="file">, caused
+ *     the file picker to open 2-3 times per click.
+ *
+ * FIX:
+ *   - ALL 10 dropzones (including pdf/i2p, which now have static ids
+ *     dz-pdf / dz-i2p) are initialized exactly once, via setupDragDrop(),
+ *     which itself is now idempotent (see dataset.ddInit guard above).
+ *   - The old generic ".dropzone" click handler that called input.click()
+ *     has been REMOVED. Clicking now relies solely on the native browser
+ *     behavior of the full-bleed, transparent <input type="file"> that
+ *     covers the dropzone (CSS: position:absolute; inset:0). This means
+ *     exactly ONE native "open file picker" action per user click, with
+ *     no JS-triggered duplicates.
+ *   - Keyboard accessibility (Enter/Space on a focused dropzone) is
+ *     preserved via a single delegated keydown listener per dropzone.
+ * ===========================================================================
+ */
 
-// Initialize PDF drag drops
-['pdf','i2p'].forEach(id => {
-  const dzId = 'dz-' + id;
-  const el = document.getElementById(dzId);
-  if (!el) return;
-  const inputId = 'fi-' + id;
-  el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
-  el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
-  el.addEventListener('drop', e => {
-    e.preventDefault(); el.classList.remove('drag-over');
-    const inp = document.getElementById(inputId);
-    if (!inp) return;
-    const dt = new DataTransfer();
-    Array.from(e.dataTransfer.files).forEach(f => dt.items.add(f));
-    inp.files = dt.files;
-    inp.dispatchEvent(new Event('change'));
-  });
-});
+// ===== INIT DRAG & DROP (single source of truth, each dropzone initialized once) =====
+[
+  ['dz-compress','fi-compress'],
+  ['dz-resize','fi-resize'],
+  ['dz-convert','fi-convert'],
+  ['dz-crop','fi-crop'],
+  ['dz-rotate','fi-rotate'],
+  ['dz-flip','fi-flip'],
+  ['dz-wm','fi-wm'],
+  ['dz-merge','fi-merge'],
+  ['dz-pdf','fi-pdf'],
+  ['dz-i2p','fi-i2p']
+].forEach(([dzId, inputId]) => setupDragDrop(dzId, inputId));
 
-// Missing dropzone ids for pdf
-const dzPdf = document.getElementById('fi-pdf');
-if (dzPdf) {
-  const wrap = dzPdf.closest('.dropzone');
-  if (wrap) {
-    wrap.id = 'dz-pdf';
-    wrap.addEventListener('dragover', e => { e.preventDefault(); wrap.classList.add('drag-over'); });
-    wrap.addEventListener('dragleave', () => wrap.classList.remove('drag-over'));
-    wrap.addEventListener('drop', e => {
-      e.preventDefault(); wrap.classList.remove('drag-over');
-      const dt = new DataTransfer();
-      Array.from(e.dataTransfer.files).forEach(f => dt.items.add(f));
-      dzPdf.files = dt.files;
-      dzPdf.dispatchEvent(new Event('change'));
-    });
-  }
-}
-
-// ===== DROPZONE CLICK HANDLERS =====
+// ===== DROPZONE KEYBOARD ACCESSIBILITY (click is handled natively by the input) =====
 document.querySelectorAll('.dropzone').forEach(dz => {
   const inp = dz.querySelector('input[type=file]');
   if (!inp) return;
-  dz.addEventListener('click', () => inp.click());
-  dz.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') inp.click(); });
+  dz.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      inp.click();
+    }
+  });
 });
 </script>
 </body>
 </html>
-
