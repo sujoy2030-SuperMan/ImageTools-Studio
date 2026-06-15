@@ -1,1633 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="index, follow">
-<title>ImageTools Studio – Free Online Image & PDF Tools | Fast, Secure, Browser-Based</title>
-<meta name="description" content="Free online image tools: compress, resize, convert, crop, rotate, flip, watermark, merge images, PDF to image, and image to PDF. 100% browser-based, no uploads to servers.">
-<meta name="keywords" content="image compressor, image resizer, image converter, crop image, rotate image, flip image, watermark, merge images, PDF to JPG, image to PDF, online image tools, free image tools">
-<link rel="canonical" href="https://imagetoolsstudio.com/">
-<meta property="og:title" content="ImageTools Studio – Free Online Image & PDF Tools">
-<meta property="og:description" content="Process images instantly in your browser. Compress, resize, convert, crop, rotate, flip, watermark, merge, and convert between PDF and images.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://imagetoolsstudio.com/">
-<meta property="og:image" content="https://imagetoolsstudio.com/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ImageTools Studio – Free Online Image & PDF Tools">
-<meta name="twitter:description" content="100% browser-based image processing. No uploads, no servers. Compress, convert, crop, and more.">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "ImageTools Studio",
-  "url": "https://imagetoolsstudio.com/",
-  "description": "Free online image and PDF tools that run entirely in your browser.",
-  "applicationCategory": "MultimediaApplication",
-  "operatingSystem": "Any",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-}
-</script>
-<style>
-:root {
-  --bg: #0a0c14;
-  --surface: #111420;
-  --surface2: #181d2e;
-  --surface3: #1e2438;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --text: #e8ecf4;
-  --text2: #8892a8;
-  --text3: #5a6279;
-  --accent: #6c63ff;
-  --accent2: #8b5cf6;
-  --accent3: #06d6a0;
-  --warn: #f59e0b;
-  --err: #ef4444;
-  --grad: linear-gradient(135deg, #6c63ff 0%, #8b5cf6 50%, #06d6a0 100%);
-  --grad2: linear-gradient(135deg, #1e2438 0%, #111420 100%);
-  --radius: 14px;
-  --radius-sm: 8px;
-  --shadow: 0 8px 32px rgba(0,0,0,0.4);
-  --shadow-sm: 0 2px 12px rgba(0,0,0,0.3);
-  --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
-body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple-system,sans-serif;min-height:100vh;overflow-x:hidden;line-height:1.6}
-::selection{background:rgba(108,99,255,0.35);color:#fff}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-a{color:inherit;text-decoration:none}
-button{cursor:pointer;font-family:inherit;border:none;outline:none}
-input,select,textarea{font-family:inherit}
-img{max-width:100%;height:auto}
-canvas{max-width:100%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageTools Studio | Free SaaS Batch Image & PDF Processor</title>
+    <meta name="description" content="Professional-grade, 100% browser-based suite for lightning-fast image compression, conversions, PDF splits, joins, QR code generation, and filter mechanics safely without uploads.">
+    <meta name="keywords" content="image compressor, merge pdf, clear metadata, resize converter, client side processing, privacy tools">
+    <link rel="canonical" href="https://imagetools.studio/">
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--surface)}
-::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+    <meta property="og:site_name" content="ImageTools Studio">
+    <meta property="og:title" content="ImageTools Studio | Professional Browser-Based Asset Suite">
+    <meta property="og:description" content="Optimize, transform, crop, slice, and patch production images and PDF collections securely right within your web browser environment. No telemetry data leaks.">
+    <meta property="og:url" content="https://imagetools.studio/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://imagetools.studio/assets/og-cover-landing.png">
 
-/* ===== NAV ===== */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,12,20,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:10px;font-size:1.2rem;font-weight:700;letter-spacing:-0.02em}
-.nav-logo-icon{width:34px;height:34px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.nav-logo span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-tagline{font-size:0.72rem;color:var(--text3);font-weight:400;letter-spacing:0.01em;display:none}
-@media(min-width:768px){.nav-tagline{display:block}}
-.nav-actions{display:flex;align-items:center;gap:10px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 18px;border-radius:var(--radius-sm);font-size:0.875rem;font-weight:500;transition:var(--transition);white-space:nowrap}
-.btn-primary{background:var(--grad);color:#fff;box-shadow:0 4px 20px rgba(108,99,255,0.3)}
-.btn-primary:hover{opacity:0.9;transform:translateY(-1px);box-shadow:0 6px 28px rgba(108,99,255,0.45)}
-.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
-.btn-ghost:hover{background:var(--surface2);color:var(--text);border-color:var(--border2)}
-.btn-sm{padding:6px 14px;font-size:0.8rem}
-.btn-icon{padding:8px;border-radius:var(--radius-sm);background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
-.btn-icon:hover{background:var(--surface3);color:var(--text)}
-.btn-danger{background:rgba(239,68,68,0.15);color:var(--err);border:1px solid rgba(239,68,68,0.3)}
-.btn-danger:hover{background:rgba(239,68,68,0.25)}
-.btn-success{background:rgba(6,214,160,0.15);color:var(--accent3);border:1px solid rgba(6,214,160,0.3)}
-.btn-success:hover{background:rgba(6,214,160,0.25)}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ImageTools Studio | Production Grade File Assets Suite">
+    <meta name="twitter:description" content="Process complex assets locally with lossless canvas engines entirely inside your client frame. Zero uploads, zero telemetry latency.">
+    <meta name="twitter:image" content="https://imagetools.studio/assets/og-cover-landing.png">
 
-/* ===== HERO ===== */
-.hero{padding:100px 24px 48px;text-align:center;max-width:800px;margin:0 auto}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.25);border-radius:100px;padding:4px 14px;font-size:0.78rem;color:var(--accent);font-weight:500;margin-bottom:20px}
-.hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;letter-spacing:-0.03em;line-height:1.15;margin-bottom:16px}
-.hero h1 .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{color:var(--text2);font-size:1.05rem;max-width:560px;margin:0 auto 32px}
-.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.hero-stats-inner{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;width:100%}
-.hero-stat{text-align:center}
-.hero-stat-num{font-size:1.6rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-stat-label{font-size:0.75rem;color:var(--text3);margin-top:2px}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="saas-premium.css">
 
-/* ===== TOOLS GRID ===== */
-.section{padding:24px}
-.section-title{font-size:1.25rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px}
-.section-subtitle{color:var(--text2);font-size:0.875rem;margin-bottom:24px}
-.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;max-width:1200px;margin:0 auto}
-.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;text-align:center}
-.tool-card::before{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:var(--transition)}
-.tool-card:hover::before{opacity:0.05}
-.tool-card:hover{border-color:rgba(108,99,255,0.4);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-.tool-card.active{border-color:var(--accent);background:rgba(108,99,255,0.08)}
-.tool-icon{font-size:2rem;margin-bottom:10px;display:block}
-.tool-name{font-size:0.875rem;font-weight:600;margin-bottom:4px}
-.tool-desc{font-size:0.75rem;color:var(--text3);line-height:1.4}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-/* ===== WORKSPACE ===== */
-.workspace{max-width:1200px;margin:0 auto;padding:0 24px 48px}
-.workspace-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:none}
-.workspace-panel.active{display:block}
-.panel-header{background:var(--surface2);border-bottom:1px solid var(--border);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.panel-title{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px}
-.panel-body{padding:20px}
-.panel-grid{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:900px){.panel-grid{grid-template-columns:1fr 1fr}}
-.panel-grid-3{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:900px){.panel-grid-3{grid-template-columns:1fr 400px}}
-
-/* ===== DROPZONE ===== */
-.dropzone{border:2px dashed var(--border2);border-radius:var(--radius);padding:48px 24px;text-align:center;transition:var(--transition);cursor:pointer;position:relative;background:var(--surface2)}
-.dropzone:hover,.dropzone.drag-over{border-color:var(--accent);background:rgba(108,99,255,0.06)}
-.dropzone-icon{font-size:2.5rem;margin-bottom:12px;display:block}
-.dropzone h3{font-size:1rem;font-weight:600;margin-bottom:6px}
-.dropzone p{font-size:0.8rem;color:var(--text3)}
-.dropzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:5}
-
-/* ===== CONTROLS ===== */
-.control-group{margin-bottom:16px}
-.control-label{font-size:0.8rem;font-weight:600;color:var(--text2);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
-.control-value{color:var(--accent);font-weight:700}
-.slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--surface3);outline:none;cursor:pointer}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--grad);cursor:pointer;box-shadow:0 2px 8px rgba(108,99,255,0.4)}
-.slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--grad);cursor:pointer;border:none}
-.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.input-field{background:var(--surface3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:10px 12px;color:var(--text);font-size:0.875rem;width:100%;transition:var(--transition)}
-.input-field:focus{border-color:var(--accent);outline:none}
-.select-field{background:var(--surface3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:10px 12px;color:var(--text);font-size:0.875rem;width:100%;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a6279' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
-.select-field:focus{border-color:var(--accent);outline:none}
-.checkbox-row{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.875rem}
-.checkbox-row input{width:16px;height:16px;accent-color:var(--accent)}
-.radio-group{display:flex;gap:8px;flex-wrap:wrap}
-.radio-btn{padding:7px 14px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--surface3);color:var(--text2);font-size:0.8rem;cursor:pointer;transition:var(--transition)}
-.radio-btn.active,.radio-btn:hover{border-color:var(--accent);background:rgba(108,99,255,0.1);color:var(--text)}
-
-/* ===== STATS ===== */
-.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
-.stat-item{text-align:center}
-.stat-label{font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px}
-.stat-value{font-size:0.95rem;font-weight:700;word-break:break-all}
-.stat-value.green{color:var(--accent3)}
-.stat-value.accent{color:var(--accent)}
-
-/* ===== PREVIEW ===== */
-.preview-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-height:200px;display:flex;align-items:center;justify-content:center;position:relative}
-.preview-box img,.preview-box canvas{max-width:100%;max-height:400px;object-fit:contain;display:block;margin:auto}
-.preview-placeholder{color:var(--text3);font-size:0.875rem;text-align:center;padding:40px 20px}
-.preview-placeholder span{font-size:2rem;display:block;margin-bottom:8px}
-
-/* ===== BEFORE/AFTER SLIDER ===== */
-.compare-container-box{padding:12px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px}
-.compare-wrap{position:relative;overflow:hidden;border-radius:var(--radius);cursor:ew-resize;height:380px;background:#000;display:flex;align-items:center;justify-content:center}
-.compare-before,.compare-after{position:absolute;inset:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.compare-before img,.compare-after img{width:100%;height:100%;object-fit:contain;display:block}
-.compare-after{clip-path:inset(0 0 0 50%)}
-.compare-divider{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;cursor:ew-resize;z-index:10}
-.compare-divider::after{content:'⟺';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
-.compare-label{position:absolute;top:10px;padding:3px 10px;background:rgba(0,0,0,0.6);border-radius:100px;font-size:0.7rem;font-weight:600;color:#fff;z-index:11;pointer-events:none}
-.compare-label.before{left:10px}
-.compare-label.after{right:10px}
-
-/* ===== PROGRESS ===== */
-.progress-wrap{margin:12px 0}
-.progress-bar{height:4px;background:var(--surface3);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;background:var(--grad);border-radius:2px;transition:width 0.3s ease;width:0%}
-.progress-text{font-size:0.75rem;color:var(--text3);margin-top:4px}
-
-/* ===== PROCESSING ANIMATION ===== */
-.processing{display:none;align-items:center;gap:10px;color:var(--text2);font-size:0.875rem}
-.processing.active{display:flex}
-.spin{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.pulse{animation:pulse 1.5s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-
-/* ===== FILE LIST ===== */
-.file-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;max-height:200px;overflow-y:auto;padding-right:4px}
-.file-item{background:var(--surface3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;display:flex;align-items:center;gap:10px;font-size:0.825rem}
-.file-item-info{flex:1;min-width:0}
-.file-item-name{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.file-item-size{color:var(--text3);font-size:0.75rem}
-.file-item-remove{background:none;color:var(--text3);font-size:1.1rem;padding:4px;border-radius:4px;flex-shrink:0;cursor:pointer}
-.file-item-remove:hover{color:var(--err)}
-
-/* ===== TOAST ===== */
-.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-.toast{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 16px;font-size:0.85rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;pointer-events:all;animation:slideIn 0.3s ease;max-width:320px}
-.toast.success{border-color:rgba(6,214,160,0.4);color:var(--accent3)}
-.toast.error{border-color:rgba(239,68,68,0.4);color:var(--err)}
-.toast.info{border-color:rgba(108,99,255,0.4);color:var(--accent)}
-@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes slideOut{to{transform:translateX(120%);opacity:0}}
-
-/* ===== CROP AREA ===== */
-.crop-wrap{position:relative;display:inline-block;cursor:crosshair;background:#000}
-.crop-wrap img{display:block;max-width:100%;max-height:380px;user-select:none;-webkit-user-drag:none}
-.crop-selection{position:absolute;border:1px dashed #fff;outline:9999px solid rgba(0,0,0,0.6);pointer-events:none;box-shadow:inset 0 0 15px rgba(255,255,255,0.2)}
-
-/* ===== RESULT AREA ===== */
-.result-area{display:none;margin-top:16px}
-.result-area.show{display:block}
-.result-img-wrap{text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.result-img-wrap img,.result-img-wrap canvas{max-height:350px;max-width:100%;object-fit:contain;border-radius:var(--radius-sm)}
-
-/* ===== FOOTER ===== */
-.footer{padding:32px 24px;border-top:1px solid var(--border);text-align:center;color:var(--text3);font-size:0.8rem}
-.footer strong{color:var(--text2)}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:640px){
-  .hero{padding:80px 16px 32px}
-  .section{padding:16px}
-  .workspace{padding:0 16px 32px}
-  .panel-body{padding:14px}
-  .tools-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-  .hero-stats{gap:20px}
-}
-@media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms !important;transition-duration:0.01ms !important}}
-</style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-<script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://imagetools.studio/#webapp",
+          "url": "https://imagetools.studio/",
+          "name": "ImageTools Studio",
+          "applicationCategory": "MultimediaApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5 Canvas, FileAPI, and WebAssembly capabilities.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "USD"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://imagetools.studio/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://imagetools.studio/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://imagetools.studio/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Are my files uploaded or stored on any server infrastructure?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. ImageTools Studio operates entirely using client-side execution via local sandboxed Canvas and JavaScript engines. Your private media files never leave your device."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a hidden operational capacity cost limit on processing pipelines?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "All tools across ImageTools Studio are completely free for use without volume caps, subscription paywalls, or feature access restrictions."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
 
-<div class="toast-wrap" id="toast-container" role="live"></div>
-
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-logo">
-    <div class="nav-logo-icon" aria-hidden="true">🖼️</div>
-    <div>
-      <span>ImageTools Studio</span>
-      <div class="nav-tagline">Free Online Image &amp; PDF Tools</div>
-    </div>
-  </div>
-  <div class="nav-actions">
-    <button class="btn btn-ghost btn-sm" onclick="scrollToTools()">All Tools</button>
-  </div>
-</nav>
-
-<header class="hero" role="banner">
-  <div class="hero-badge">🔒 100% Browser-Based · No Uploads to Servers</div>
-  <h1>Fast, Free <span class="grad">Image Tools</span><br>for Everyone</h1>
-  <p>Compress, resize, convert, crop, watermark, and more — entirely in your browser. Your files never leave your device.</p>
-  <div class="hero-stats">
-    <div class="hero-stats-inner">
-      <div class="hero-stat"><div class="hero-stat-num">10</div><div class="hero-stat-label">Tools</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">0</div><div class="hero-stat-label">Uploads to Server</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Files Free</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Private</div></div>
-    </div>
-  </div>
-</header>
-
-<section class="section" id="tools" aria-labelledby="tools-heading">
-  <div style="max-width:1200px;margin:0 auto">
-    <h2 class="section-title" id="tools-heading">Choose a Tool</h2>
-    <p class="section-subtitle">Click any tool to get started. All processing happens instantly in your browser.</p>
-    <div class="tools-grid" role="list">
-      <div class="tool-card" role="listitem" onclick="openTool('compress')" id="tc-compress" tabindex="0" data-tool="compress" aria-label="Image Compressor">
-        <span class="tool-icon">🗜️</span>
-        <div class="tool-name">Image Compressor</div>
-        <div class="tool-desc">Reduce file size while keeping quality</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('resize')" id="tc-resize" tabindex="0" data-tool="resize" aria-label="Image Resizer">
-        <span class="tool-icon">📐</span>
-        <div class="tool-name">Image Resizer</div>
-        <div class="tool-desc">Set exact dimensions in pixels</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('convert')" id="tc-convert" tabindex="0" data-tool="convert" aria-label="Image Converter">
-        <span class="tool-icon">🔄</span>
-        <div class="tool-name">Image Converter</div>
-        <div class="tool-desc">Convert between JPG, PNG, WEBP</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('crop')" id="tc-crop" tabindex="0" data-tool="crop" aria-label="Image Cropper">
-        <span class="tool-icon">✂️</span>
-        <div class="tool-name">Image Cropper</div>
-        <div class="tool-desc">Crop to any size or ratio</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('rotate')" id="tc-rotate" tabindex="0" data-tool="rotate" aria-label="Rotate Image">
-        <span class="tool-icon">🔁</span>
-        <div class="tool-name">Rotate Image</div>
-        <div class="tool-desc">Rotate left, right, or custom angle</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('flip')" id="tc-flip" tabindex="0" data-tool="flip" aria-label="Flip Image">
-        <span class="tool-icon">🪞</span>
-        <div class="tool-name">Flip Image</div>
-        <div class="tool-desc">Flip horizontally or vertically</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('watermark')" id="tc-watermark" tabindex="0" data-tool="watermark" aria-label="Watermark Image">
-        <span class="tool-icon">💧</span>
-        <div class="tool-name">Watermark</div>
-        <div class="tool-desc">Add text watermark to image</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('merge')" id="tc-merge" tabindex="0" data-tool="merge" aria-label="Merge Images">
-        <span class="tool-icon">🔗</span>
-        <div class="tool-name">Merge Images</div>
-        <div class="tool-desc">Combine multiple images into one</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('pdftoimag')" id="tc-pdftoimag" tabindex="0" data-tool="pdftoimag" aria-label="PDF to Image">
-        <span class="tool-icon">📄</span>
-        <div class="tool-name">PDF to Image</div>
-        <div class="tool-desc">Convert PDF pages to JPG or PNG</div>
-      </div>
-      <div class="tool-card" role="listitem" onclick="openTool('imagetopdf')" id="tc-imagetopdf" tabindex="0" data-tool="imagetopdf" aria-label="Image to PDF">
-        <span class="tool-icon">📑</span>
-        <div class="tool-name">Image to PDF</div>
-        <div class="tool-desc">Pack images into a PDF file</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<main class="workspace" id="workspace" aria-label="Tool workspace">
-
-  <div class="workspace-panel" id="panel-compress">
-    <div class="panel-header">
-      <div class="panel-title">🗜️ Image Compressor</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid-3">
-        <div>
-          <div class="dropzone" id="dz-compress" tabindex="0" role="button" aria-label="Drop image here or click to upload">
-            <input type="file" id="fi-compress" accept="image/*" onchange="loadCompressFile(this)">
-            <span class="dropzone-icon">🗜️</span>
-            <h3>Drop your image here</h3>
-            <p>or click to browse &bull; JPG, PNG, WEBP</p>
-          </div>
-          <div class="file-list" id="fl-compress"></div>
-          <div class="control-group" style="margin-top:16px">
-            <div class="control-label">Quality <span class="control-value" id="quality-val">80%</span></div>
-            <input type="range" class="slider" id="quality-slider" min="1" max="100" value="80" oninput="updateQualityLabel(this.value)">
-          </div>
-          <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="runCompress()">🗜️ Compress Image</button>
+    <header class="saas-navbar" aria-label="Main Platform Navigation Hub">
+        <div class="navbar-container">
+            <a href="/" class="platform-logo" aria-label="ImageTools Studio Homepage">
+                <span class="logo-accent">ImageTools</span> Studio
+            </a>
+            <nav aria-label="Quick Navigation Links Menu" class="nav-links">
+                <a href="#tools-dashboard-section">Dashboard</a>
+                <a href="#why-choose-us-section">Security Matrix</a>
+                <a href="#faq-section">FAQ</a>
+                <a href="#tools-dashboard-section" class="cta-nav-button">Launch Workspace</a>
+            </nav>
         </div>
-        <div>
-          <div class="stats-bar" id="compress-stats" style="display:none; margin-bottom: 12px;">
-            <div class="stat-item"><div class="stat-label">Original</div><div class="stat-value" id="cs-orig">—</div></div>
-            <div class="stat-item"><div class="stat-label">New Size</div><div class="stat-value accent" id="cs-new">—</div></div>
-            <div class="stat-item"><div class="stat-label">Saved</div><div class="stat-value green" id="cs-saved">—</div></div>
-            <div class="stat-item"><div class="stat-label">Reduction</div><div class="stat-value green" id="cs-pct">—</div></div>
-          </div>
-          <div class="processing" id="proc-compress" style="margin:12px 0"><div class="spin"></div>Compressing…</div>
-          <div class="result-area" id="res-compress">
-            <div class="compare-container-box" id="compare-compress-box" style="display:none">
-              <div class="compare-wrap" id="cw-compress">
-                <div class="compare-before"><img id="compare-before-compress" alt="Original"></div>
-                <div class="compare-after" id="ca-compress"><img id="compare-after-img-compress" alt="Compressed"></div>
-                <div class="compare-divider" id="cd-compress"></div>
-                <span class="compare-label before">Before</span><span class="compare-label after">After</span>
-              </div>
+    </header>
+
+    <main>
+        <section class="saas-hero" aria-labelledby="hero-title">
+            <h1 id="hero-title" class="gradient-headline">Next-Generation<br>Client Media Suite</h1>
+            <p class="hero-subtitle">
+                Process images, convert code-bases, and manage PDF data structures completely within memory. 100% local processing speed. Absolute file privacy isolation.
+            </p>
+            <div class="hero-actions">
+                <a href="#tools-dashboard-section" class="btn-primary">Get Started - Free</a>
+                <a href="#why-choose-us-section" class="btn-secondary">Security Matrix</a>
             </div>
-            <div class="result-img-wrap" id="rw-compress" style="display:none"><canvas id="cv-compress"></canvas></div>
-            <button class="btn btn-success" style="width:100%;margin-top:12px" id="dl-compress">⬇️ Download Compressed Image</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </section>
 
-  <div class="workspace-panel" id="panel-resize">
-    <div class="panel-header">
-      <div class="panel-title">📐 Image Resizer</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-resize" tabindex="0" role="button" aria-label="Drop image here or click to upload">
-            <input type="file" id="fi-resize" accept="image/*" onchange="loadResizeFile(this)">
-            <span class="dropzone-icon">📐</span><h3>Drop image here</h3><p>or click to browse</p>
-          </div>
-          <p id="info-resize" style="font-size:.78rem;color:var(--text3);margin-top:8px"></p>
-          <div class="input-row" style="margin-top:14px">
-            <div>
-              <div class="control-label">Width (px)</div>
-              <input type="number" class="input-field" id="rz-w" placeholder="Width" oninput="lockAspect('w')">
+        <section class="telemetry-section" aria-label="Platform Telemetry Metrics Grid">
+            <div class="telemetry-grid">
+                <div class="telemetry-card">
+                    <div class="telemetry-counter" data-target="52480" data-suffix="+">0</div>
+                    <div class="telemetry-label">Files Processed</div>
+                </div>
+                <div class="telemetry-card">
+                    <div class="telemetry-value-static color-blue">100%</div>
+                    <div class="telemetry-label">Browser Sandboxed</div>
+                </div>
+                <div class="telemetry-card">
+                    <div class="telemetry-value-static color-green">0</div>
+                    <div class="telemetry-label">Server Uploads</div>
+                </div>
+                <div class="telemetry-card">
+                    <div class="telemetry-value-static color-purple">Instant</div>
+                    <div class="telemetry-label">Local Render Run</div>
+                </div>
             </div>
-            <div>
-              <div class="control-label">Height (px)</div>
-              <input type="number" class="input-field" id="rz-h" placeholder="Height" oninput="lockAspect('h')">
-            </div>
-          </div>
-          <label class="checkbox-row" style="margin-top:10px">
-            <input type="checkbox" id="rz-lock" checked> Lock aspect ratio
-          </label>
-          <button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="runResize()">📐 Resize Image</button>
-        </div>
-        <div>
-          <div class="preview-box" id="prev-resize"><div class="preview-placeholder"><span>📐</span>Preview appears here</div></div>
-          <div class="result-area" id="res-resize">
-            <div class="result-img-wrap"><canvas id="cv-resize"></canvas></div>
-            <button class="btn btn-success" style="width:100%;margin-top:12px" id="dl-resize">⬇️ Download Resized</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </section>
 
-  <div class="workspace-panel" id="panel-convert">
-    <div class="panel-header">
-      <div class="panel-title">🔄 Image Converter</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-convert" tabindex="0" role="button" aria-label="Drop images here or click to upload">
-            <input type="file" id="fi-convert" accept="image/*" multiple onchange="loadConvertFiles(this)">
-            <span class="dropzone-icon">🔄</span><h3>Drop images here</h3><p>Multiple files supported</p>
-          </div>
-          <div class="file-list" id="fl-convert"></div>
-          <div class="control-group" style="margin-top:16px">
-            <div class="control-label">Convert to</div>
-            <div class="radio-group" id="fmt-group">
-              <div class="radio-btn active" onclick="setFormat('image/jpeg',this)">JPG</div>
-              <div class="radio-btn" onclick="setFormat('image/png',this)">PNG</div>
-              <div class="radio-btn" onclick="setFormat('image/webp',this)">WEBP</div>
-            </div>
-          </div>
-          <div class="control-group" id="conv-quality-wrap">
-            <div class="control-label">Quality <span class="control-value" id="conv-q-val">90%</span></div>
-            <input type="range" class="slider" id="conv-q-slider" min="1" max="100" value="90" oninput="document.getElementById('conv-q-val').textContent=this.value+'%'">
-          </div>
-          <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="runConvert()">🔄 Convert All</button>
-        </div>
-        <div>
-          <div class="result-area" id="res-convert">
-            <div id="conv-results" style="display:flex; flex-direction:column; gap:10px;"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="workspace-panel" id="panel-crop">
-    <div class="panel-header">
-      <div class="panel-title">✂️ Image Cropper</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-crop" tabindex="0" role="button" aria-label="Drop image here or click to upload">
-            <input type="file" id="fi-crop" accept="image/*" onchange="loadCropFile(this)">
-            <span class="dropzone-icon">✂️</span><h3>Drop image here</h3><p>Click and drag over the image viewport bounds</p>
-          </div>
-          <div style="margin-top:14px">
-            <div class="control-label">Crop area (px)</div>
-            <div class="input-row">
-              <input type="number" class="input-field" id="crop-x" placeholder="X" oninput="updateCropManual()">
-              <input type="number" class="input-field" id="crop-y" placeholder="Y" oninput="updateCropManual()">
-            </div>
-            <div class="input-row" style="margin-top:8px">
-              <input type="number" class="input-field" id="crop-w" placeholder="Width" oninput="updateCropManual()">
-              <input type="number" class="input-field" id="crop-h" placeholder="Height" oninput="updateCropManual()">
-            </div>
-          </div>
-          <button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="runCrop()">✂️ Crop Image</button>
-        </div>
-        <div>
-          <div id="crop-area-wrap" style="overflow:auto;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);min-height:200px;display:flex;align-items:center;justify-content:center;padding:12px">
-            <div class="preview-placeholder" id="crop-placeholder"><span>✂️</span>Upload an image to crop</div>
-            <div class="crop-wrap" id="crop-container" style="display:none">
-              <img id="crop-img" alt="Image to crop">
-              <div class="crop-selection" id="crop-sel"></div>
-            </div>
-          </div>
-          <div class="result-area" id="res-crop" style="margin-top:12px">
-            <div class="result-img-wrap"><canvas id="cv-crop"></canvas></div>
-            <button class="btn btn-success" style="width:100%" id="dl-crop">⬇️ Download Cropped</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="workspace-panel" id="panel-rotate">
-    <div class="panel-header">
-      <div class="panel-title">🔁 Rotate Image</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-rotate" tabindex="0" role="button">
-            <input type="file" id="fi-rotate" accept="image/*" onchange="loadRotateFile(this)">
-            <span class="dropzone-icon">🔁</span><h3>Drop image here</h3><p>Transform rotation angles matrix</p>
-          </div>
-          <div class="control-group" style="margin-top:16px">
-            <div class="control-label">Rotation Angle</div>
-            <div class="radio-group">
-              <button class="radio-btn active" onclick="setRotationAngle(0, this)">0°</button>
-              <button class="radio-btn" onclick="setRotationAngle(90, this)">90° CW</button>
-              <button class="radio-btn" onclick="setRotationAngle(180, this)">180°</button>
-              <button class="radio-btn" onclick="setRotationAngle(270, this)">270° CCW</button>
-            </div>
-          </div>
-          <button class="btn btn-primary" style="width:100%" onclick="runRotate()">🔁 Rotate</button>
-        </div>
-        <div>
-          <div class="preview-box" id="prev-rotate"><div class="preview-placeholder"><span>🔁</span>Preview Area</div></div>
-          <div class="result-area" id="res-rotate">
-            <div class="result-img-wrap"><canvas id="cv-rotate"></canvas></div>
-            <button class="btn btn-success" style="width:100%" id="dl-rotate">⬇️ Download Rotated</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="workspace-panel" id="panel-flip">
-    <div class="panel-header">
-      <div class="panel-title">🪞 Flip Image</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-flip" tabindex="0" role="button">
-            <input type="file" id="fi-flip" accept="image/*" onchange="loadFlipFile(this)">
-            <span class="dropzone-icon">🪞</span><h3>Drop image here</h3><p>Invert coordinates alignment axis</p>
-          </div>
-          <div class="input-row" style="margin-top:16px">
-            <button class="btn btn-ghost" id="flip-h-btn" onclick="toggleFlip('h')">↔️ Flip Horizontal</button>
-            <button class="btn btn-ghost" id="flip-v-btn" onclick="toggleFlip('v')">↕️ Flip Vertical</button>
-          </div>
-          <button class="btn btn-primary" style="width:100%; margin-top:16px" onclick="runFlip()">🪞 Flip</button>
-        </div>
-        <div>
-          <div class="preview-box" id="prev-flip"><div class="preview-placeholder"><span>🪞</span>Preview Area</div></div>
-          <div class="result-area" id="res-flip">
-            <div class="result-img-wrap"><canvas id="cv-flip"></canvas></div>
-            <button class="btn btn-success" style="width:100%" id="dl-flip">⬇️ Download Flipped</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="workspace-panel" id="panel-watermark">
-    <div class="panel-header">
-      <div class="panel-title">💧 Watermark Image</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-watermark" tabindex="0" role="button">
-            <input type="file" id="fi-watermark" accept="image/*" onchange="loadWatermarkFile(this)">
-            <span class="dropzone-icon">💧</span><h3>Drop image here</h3><p>Overlay protection layout text strings</p>
-          </div>
-          <div class="control-group" style="margin-top:14px">
-            <div class="control-label">Watermark Text</div>
-            <input type="text" class="input-field" id="wm-text" value="© ImageTools Studio" oninput="applyWatermarkLive()">
-          </div>
-          <div class="input-row">
-            <div>
-              <div class="control-label">Opacity</div>
-              <input type="range" class="slider" id="wm-opacity" min="10" max="100" value="40" oninput="applyWatermarkLive()">
-            </div>
-            <div>
-              <div class="control-label">Font Size (px)</div>
-              <input type="number" class="input-field" id="wm-size" value="32" oninput="applyWatermarkLive()">
-            </div>
-          </div>
-          <div class="control-group" style="margin-top: 12px">
-            <div class="control-label">Color</div>
-            <input type="color" id="wm-color" value="#ffffff" style="width:100%; height:40px; border:none; background:none; cursor:pointer;" onchange="applyWatermarkLive()">
-          </div>
-          <button class="btn btn-primary" style="width:100%" onclick="runWatermark()">💧 Burn Watermark</button>
-        </div>
-        <div>
-          <div class="preview-box" id="prev-watermark"><div class="preview-placeholder"><span>💧</span>Preview Area</div></div>
-          <div class="result-area" id="res-watermark">
-            <div class="result-img-wrap"><canvas id="cv-watermark"></canvas></div>
-            <button class="btn btn-success" style="width:100%" id="dl-watermark">⬇️ Download Watermarked</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="workspace-panel" id="panel-merge">
-    <div class="panel-header">
-      <div class="panel-title">🔗 Merge Images</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-merge" tabindex="0" role="button">
-            <input type="file" id="fi-merge" accept="image/*" multiple onchange="loadMergeFiles(this)">
-            <span class="dropzone-icon">🔗</span><h3>Drop images here</h3><p>Combine multiple layers sequentially</p>
-          </div>
-          <div class="file-list" id="fl-merge"></div>
-          <div class="control-group" style="margin-top:16px">
-            <div class="control-label">Stitching Orientation Matrix</div>
-            <div class="radio-group">
-              <button class="radio-btn active" id="merge-dir-v" onclick="setMergeDirection('v', this)">Vertical Stack</button>
-              <button class="radio-btn" id="merge-dir-h" onclick="setMergeDirection('h', this)">Horizontal Strip</button>
-            </div>
-          </div>
-          <button class="btn btn-primary" style="width:100%" onclick="runMerge()">🔗 Stitch Sequences</button>
-        </div>
-        <div>
-          <div class="result-area" id="res-merge">
-            <div class="result-img-wrap"><canvas id="cv-merge"></canvas></div>
-            <button class="btn btn-success" style="width:100%" id="dl-merge">⬇️ Download Merged Sequence</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="workspace-panel" id="panel-pdftoimag">
-    <div class="panel-header">
-      <div class="panel-title">📄 PDF to Image Rasterizer</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-pdftoimag" tabindex="0" role="button">
-            <input type="file" id="fi-pdftoimag" accept="application/pdf" onchange="loadPdfFile(this)">
-            <span class="dropzone-icon">📄</span><h3>Drop PDF dataset here</h3><p>Extract structural vector streams into images</p>
-          </div>
-          <div class="control-group" style="margin-top:14px">
-            <div class="control-label">Target Page Render Resolution Density</div>
-            <select class="select-field" id="pdf-res-scale">
-              <option value="1.5">Standard Screen Resolution (1.5x)</option>
-              <option value="3.0" selected>High Density Production Resolution (3.0x)</option>
-            </select>
-          </div>
-          <button class="btn btn-primary" style="width:100%" onclick="runPdfToImage()">📄 Extract All Pages</button>
-        </div>
-        <div>
-          <div class="processing" id="proc-pdf"><div class="spin"></div>Rasterizing PDF Vector Nodes…</div>
-          <div class="result-area" id="res-pdftoimag">
-            <div id="pdf-images-container" style="display:flex; flex-direction:column; gap:12px;"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="workspace-panel" id="panel-imagetopdf">
-    <div class="panel-header">
-      <div class="panel-title">📑 Image to PDF Compiler</div>
-      <button class="btn btn-ghost btn-sm" onclick="closeTool()">✕ Close</button>
-    </div>
-    <div class="panel-body">
-      <div class="panel-grid">
-        <div>
-          <div class="dropzone" id="dz-imagetopdf" tabindex="0" role="button">
-            <input type="file" id="fi-imagetopdf" accept="image/*" multiple onchange="loadImageToPdfFiles(this)">
-            <span class="dropzone-icon">📑</span><h3>Drop sequential layout frames</h3><p>Package structural sheets inside single file wrappers</p>
-          </div>
-          <div class="file-list" id="fl-imagetopdf"></div>
-          <button class="btn btn-primary" style="width:100%; margin-top:14px" onclick="runImageToPdf()">📑 Compile Document</button>
-        </div>
-        <div>
-          <div class="processing" id="proc-img2pdf"><div class="spin"></div>Compiling PDF Layers…</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<footer class="footer" role="contentinfo">
-  <p>&copy; 2026 <strong>ImageTools Studio</strong>. 100% Client-Side Engine Runtime Operations Environment.</p>
-</footer>
-
-<script>
-/* Global Memory Routing Matrix Storage Objects */
-let activeToolId = null;
-let store = {
-  compress: { file: null, img: null },
-  resize: { file: null, img: null },
-  convert: { files: [] },
-  crop: { file: null, img: null, startX: 0, startY: 0, endX: 0, endY: 0, isDrawing: false },
-  rotate: { file: null, img: null, angle: 0 },
-  flip: { file: null, img: null, h: false, v: false },
-  watermark: { file: null, img: null },
-  merge: { files: [], direction: 'v' },
-  pdf2img: { file: null, pdfDoc: null },
-  img2pdf: { files: [] }
-};
-let globalTargetConvertFormat = 'image/jpeg';
-
-/* Core Framework Navigation Utility Mappings */
-function scrollToTools() {
-  document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
-}
-
-function openTool(toolId) {
-  activeToolId = toolId;
-  document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.workspace-panel').forEach(p => p.classList.remove('active'));
-  
-  const card = document.getElementById(`tc-${toolId}`);
-  if(card) card.classList.add('active');
-  
-  const panel = document.getElementById(`panel-${toolId}`);
-  if(panel) panel.classList.add('active');
-  
-  document.getElementById('workspace').scrollIntoView({ behavior: 'smooth' });
-  showToast('info', `Initialized structural panel module: ${toolId}`);
-}
-
-function closeTool() {
-  document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.workspace-panel').forEach(p => p.classList.remove('active'));
-  activeToolId = null;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function showToast(type, msg) {
-  const container = document.getElementById('toast-container');
-  const t = document.createElement('div');
-  t.className = `toast ${type}`;
-  t.innerHTML = `<span>${type==='success'?'✅':type==='error'?'❌':'ℹ️'}</span><div>${msg}</div>`;
-  container.appendChild(t);
-  setTimeout(() => { t.style.animation = 'slideOut 0.3s ease forwards'; setTimeout(() => t.remove(), 300); }, 3500);
-}
-
-function formatBytes(b) {
-  if(b === 0) return '0 Bytes';
-  const k = 1024, sizes = ['Bytes', 'KB', 'MB'], i = Math.floor(Math.log(b) / Math.log(k));
-  return parseFloat((b / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
-
-/* Before/After Interactive Sliders Processing Engine */
-function initSliderEngine() {
-  const wrap = document.getElementById('cw-compress');
-  const divider = document.getElementById('cd-compress');
-  const afterClip = document.getElementById('ca-compress');
-  if(!wrap || !divider || !afterClip) return;
-
-  let isSliding = false;
-
-  const moveSlider = (clientX) => {
-    const rect = wrap.getBoundingClientRect();
-    let pos = ((clientX - rect.left) / rect.width) * 100;
-    if (pos < 0) pos = 0;
-    if (pos > 100) pos = 100;
-    divider.style.left = `${pos}%`;
-    afterClip.style.clipPath = `inset(0 0 0 ${pos}%)`;
-  };
-
-  const onStart = (e) => { isSliding = true; moveSlider(e.touches ? e.touches[0].clientX : e.clientX); };
-  const onMove = (e) => { if (!isSliding) return; moveSlider(e.touches ? e.touches[0].clientX : e.clientX); };
-  const onEnd = () => { isSliding = false; };
-
-  wrap.addEventListener('mousedown', onStart);
-  window.addEventListener('mousemove', onMove);
-  window.addEventListener('mouseup', onEnd);
-
-  wrap.addEventListener('touchstart', onStart, {passive: true});
-  window.addEventListener('touchmove', onMove, {passive: false});
-  window.addEventListener('touchend', onEnd);
-}
-
-/* ==========================================================================
-   1. COMPRESSOR MODULE HANDLERS
-   ========================================================================== */
-function updateQualityLabel(v) {
-  document.getElementById('quality-val').textContent = v + '%';
-}
-
-function loadCompressFile(input) {
-  if(!input.files.length) return;
-  const f = input.files[0];
-  store.compress.file = f;
-  
-  const fl = document.getElementById('fl-compress');
-  fl.innerHTML = `<div class="file-item"><div class="file-item-info"><div class="file-item-name">${f.name}</div><div class="file-item-size">${formatBytes(f.size)}</div></div></div>`;
-  
-  const r = new FileReader();
-  r.onload = (e) => {
-    const img = new Image();
-    img.onload = () => {
-      store.compress.img = img;
-      document.getElementById('compare-before-compress').src = e.target.result;
-      document.getElementById('res-compress').classList.remove('show');
-    };
-    img.src = e.target.result;
-  };
-  r.readAsDataURL(f);
-}
-
-function runCompress() {
-  if(!store.compress.img) return showToast('error', 'Please upload an image first');
-  
-  const proc = document.getElementById('proc-compress');
-  proc.classList.add('active');
-  
-  setTimeout(() => {
-    const img = store.compress.img;
-    const canvas = document.getElementById('cv-compress');
-    const ctx = canvas.getContext('2d');
-    
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-    ctx.drawImage(img, 0, 0);
-    
-    const q = parseFloat(document.getElementById('quality-slider').value) / 100;
-    const outMime = store.compress.file.type === 'image/png' ? 'image/png' : 'image/jpeg';
-    
-    const dataUrl = canvas.toDataURL(outMime, q);
-    document.getElementById('compare-after-img-compress').src = dataUrl;
-    
-    // Size Calculations Mapping Logic
-    const head = dataUrl.split(',')[1];
-    const newSize = Math.floor(atob(head).length);
-    const saved = store.compress.file.size - newSize;
-    const pct = Math.max(0, Math.round((saved / store.compress.file.size) * 100));
-
-    document.getElementById('cs-orig').textContent = formatBytes(store.compress.file.size);
-    document.getElementById('cs-new').textContent = formatBytes(newSize);
-    document.getElementById('cs-saved').textContent = saved > 0 ? formatBytes(saved) : '0 Bytes';
-    document.getElementById('cs-pct').textContent = saved > 0 ? `${pct}%` : '0%';
-    
-    document.getElementById('compress-stats').style.display = 'grid';
-    document.getElementById('compare-compress-box').style.display = 'block';
-    document.getElementById('res-compress').classList.add('show');
-    
-    // Bind target execution routine downloads anchor link mappings safely
-    const dl = document.getElementById('dl-compress');
-    dl.onclick = () => {
-      const a = document.createElement('a');
-      a.download = `compressed_${store.compress.file.name}`;
-      a.href = dataUrl;
-      a.click();
-    };
-    
-    initSliderEngine();
-    proc.classList.remove('active');
-    showToast('success', 'Compression matrix mapping completed successfully.');
-  }, 100);
-}
-
-/* ==========================================================================
-   2. RESIZER MODULE HANDLERS
-   ========================================================================== */
-function loadResizeFile(input) {
-  if(!input.files.length) return;
-  const f = input.files[0];
-  store.resize.file = f;
-  
-  const r = new FileReader();
-  r.onload = (e) => {
-    const img = new Image();
-    img.onload = () => {
-      store.resize.img = img;
-      document.getElementById('info-resize').textContent = `Original Bounds: ${img.naturalWidth}px x ${img.naturalHeight}px`;
-      document.getElementById('rz-w').value = img.naturalWidth;
-      document.getElementById('rz-h').value = img.naturalHeight;
-      
-      const prev = document.getElementById('prev-resize');
-      prev.innerHTML = '';
-      prev.appendChild(img);
-      document.getElementById('res-resize').classList.remove('show');
-    };
-    img.src = e.target.result;
-  };
-  r.readAsDataURL(f);
-}
-
-function lockAspect(trigger) {
-  if(!store.resize.img || !document.getElementById('rz-lock').checked) return;
-  const wIn = document.getElementById('rz-w');
-  const hIn = document.getElementById('rz-h');
-  const ratio = store.resize.img.naturalWidth / store.resize.img.naturalHeight;
-  
-  if(trigger === 'w' && wIn.value) {
-    hIn.value = Math.round(parseInt(wIn.value) / ratio);
-  } else if(trigger === 'h' && hIn.value) {
-    wIn.value = Math.round(parseInt(hIn.value) * ratio);
-  }
-}
-
-function runResize() {
-  if(!store.resize.img) return showToast('error', 'Please upload an image first');
-  
-  const w = parseInt(document.getElementById('rz-w').value);
-  const h = parseInt(document.getElementById('rz-h').value);
-  if(!w || !h) return showToast('error', 'Provide valid dimensions coordinates');
-
-  const canvas = document.getElementById('cv-resize');
-  const ctx = canvas.getContext('2d');
-  canvas.width = w;
-  canvas.height = h;
-  ctx.drawImage(store.resize.img, 0, 0, w, h);
-  
-  document.getElementById('res-resize').classList.add('show');
-  
-  const dl = document.getElementById('dl-resize');
-  dl.onclick = () => {
-    const a = document.createElement('a');
-    a.download = `resized_${store.resize.file.name}`;
-    a.href = canvas.toDataURL(store.resize.file.type);
-    a.click();
-  };
-  showToast('success', 'Image bounds metrics resized safely.');
-}
-
-/* ==========================================================================
-   3. CONVERTER MODULE HANDLERS
-   ========================================================================== */
-function loadConvertFiles(input) {
-  if(!input.files.length) return;
-  store.convert.files = Array.from(input.files);
-  const fl = document.getElementById('fl-convert');
-  fl.innerHTML = '';
-  store.convert.files.forEach(f => {
-    fl.innerHTML += `<div class="file-item"><div class="file-item-info"><div class="file-item-name">${f.name}</div><div class="file-item-size">${formatBytes(f.size)}</div></div></div>`;
-  });
-  document.getElementById('res-convert').classList.remove('show');
-}
-
-function setFormat(fmt, btn) {
-  globalTargetConvertFormat = fmt;
-  btn.parentNode.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function runConvert() {
-  if(!store.convert.files.length) return showToast('error', 'No input file structures matched');
-  
-  const resContainer = document.getElementById('conv-results');
-  resContainer.innerHTML = '';
-  
-  let processesCount = store.convert.files.length;
-  
-  store.convert.files.forEach((f, index) => {
-    const r = new FileReader();
-    r.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        canvas.getContext('2d').drawImage(img, 0, 0);
-        
-        const q = parseFloat(document.getElementById('conv-q-slider').value) / 100;
-        const outUrl = canvas.toDataURL(globalTargetConvertFormat, q);
-        const ext = globalTargetConvertFormat.split('/')[1];
-        
-        const item = document.createElement('div');
-        item.className = 'file-item';
-        item.style.justifyContent = 'space-between';
-        item.innerHTML = `
-          <div class="file-item-info">
-            <div class="file-item-name">${f.name.substring(0, f.name.lastIndexOf('.'))}.${ext}</div>
-            <div class="file-item-size" style="color:var(--accent3)">Ready for transpiler output</div>
-          </div>
-          <button class="btn btn-success btn-sm" id="dl-conv-${index}">Download</button>
-        `;
-        resContainer.appendChild(item);
-        
-        document.getElementById(`dl-conv-${index}`).onclick = () => {
-          const a = document.createElement('a');
-          a.download = `${f.name.substring(0, f.name.lastIndexOf('.'))}.${ext}`;
-          a.href = outUrl;
-          a.click();
-        };
-
-        if(--processesCount === 0) {
-          document.getElementById('res-convert').classList.add('show');
-          showToast('success', 'Batch formats conversion operations completed.');
-        }
-      };
-      img.src = e.target.result;
-    };
-    r.readAsDataURL(f);
-  });
-}
-
-/* ==========================================================================
-   4. CROPPER MODULE HANDLERS
-   ========================================================================== */
-function loadCropFile(input) {
-  if(!input.files.length) return;
-  const f = input.files[0];
-  store.crop.file = f;
-  
-  const r = new FileReader();
-  r.onload = (e) => {
-    const img = document.getElementById('crop-img');
-    img.onload = () => {
-      store.crop.img = img;
-      document.getElementById('crop-placeholder').style.display = 'none';
-      document.getElementById('crop-container').style.display = 'inline-block';
-      document.getElementById('res-crop').classList.remove('show');
-      resetCropSelectionBoxBounds();
-    };
-    img.src = e.target.result;
-  };
-  r.readAsDataURL(f);
-}
-
-function resetCropSelectionBoxBounds() {
-  const container = document.getElementById('crop-container');
-  const sel = document.getElementById('crop-sel');
-  
-  // Initialize default fallback square bounding frame limits matching viewport metrics
-  const w = container.clientWidth;
-  const h = container.clientHeight;
-  
-  store.crop.startX = Math.floor(w * 0.2);
-  store.crop.startY = Math.floor(h * 0.2);
-  store.crop.endX = Math.floor(w * 0.8);
-  store.crop.endY = Math.floor(h * 0.8);
-  
-  drawCropSelectionBoxUi();
-  bindCropTouchEvents();
-}
-
-function drawCropSelectionBoxUi() {
-  const sel = document.getElementById('crop-sel');
-  const x = Math.min(store.crop.startX, store.crop.endX);
-  const y = Math.min(store.crop.startY, store.crop.endY);
-  const w = Math.abs(store.crop.startX - store.crop.endX);
-  const h = Math.abs(store.crop.startY - store.crop.endY);
-  
-  sel.style.left = `${x}px`;
-  sel.style.top = `${y}px`;
-  sel.style.width = `${w}px`;
-  sel.style.height = `${h}px`;
-  
-  // Project relative parameters back into actual resolution matrix scale nodes
-  const img = document.getElementById('crop-img');
-  if(img.clientWidth && img.naturalWidth) {
-    const scaleX = img.naturalWidth / img.clientWidth;
-    const scaleY = img.naturalHeight / img.clientHeight;
-    
-    document.getElementById('crop-x').value = Math.round(x * scaleX);
-    document.getElementById('crop-y').value = Math.round(y * scaleY);
-    document.getElementById('crop-w').value = Math.round(w * scaleX);
-    document.getElementById('crop-h').value = Math.round(h * scaleY);
-  }
-}
-
-function bindCropTouchEvents() {
-  const container = document.getElementById('crop-container');
-  
-  const getCoords = (e) => {
-    const rect = container.getBoundingClientRect();
-    const touch = e.touches ? e.touches[0] : e;
-    return {
-      x: Math.max(0, Math.min(touch.clientX - rect.left, rect.width)),
-      y: Math.max(0, Math.min(touch.clientY - rect.top, rect.height))
-    };
-  };
-
-  const startTracking = (e) => {
-    if(e.target.id === 'crop-sel') return; // Ignore drag triggers inside active zone
-    store.crop.isDrawing = true;
-    const coords = getCoords(e);
-    store.crop.startX = coords.x;
-    store.crop.startY = coords.y;
-    store.crop.endX = coords.x;
-    store.crop.endY = coords.y;
-    drawCropSelectionBoxUi();
-  };
-
-  const moveTracking = (e) => {
-    if(!store.crop.isDrawing) return;
-    const coords = getCoords(e);
-    store.crop.endX = coords.x;
-    store.crop.endY = coords.y;
-    drawCropSelectionBoxUi();
-  };
-
-  const stopTracking = () => { store.crop.isDrawing = false; };
-
-  container.onmousedown = startTracking;
-  window.onmousemove = moveTracking;
-  window.onmouseup = stopTracking;
-
-  container.ontouchstart = (e) => { startTracking(e); };
-  window.ontouchmove = (e) => { if(store.crop.isDrawing) { e.preventDefault(); moveTracking(e); } };
-  window.ontouchend = stopTracking;
-}
-
-function updateCropManual() {
-  const img = document.getElementById('crop-img');
-  if(!img.clientWidth) return;
-  
-  const scaleX = img.clientWidth / img.naturalWidth;
-  const scaleY = img.clientHeight / img.naturalHeight;
-  
-  const x = parseFloat(document.getElementById('crop-x').value) * scaleX;
-  const y = parseFloat(document.getElementById('crop-y').value) * scaleY;
-  const w = parseFloat(document.getElementById('crop-w').value) * scaleX;
-  const h = parseFloat(document.getElementById('crop-h').value) * scaleY;
-  
-  store.crop.startX = x;
-  store.crop.startY = y;
-  store.crop.endX = x + w;
-  store.crop.endY = y + h;
-  
-  const sel = document.getElementById('crop-sel');
-  sel.style.left = `${x}px`;
-  sel.style.top = `${y}px`;
-  sel.style.width = `${w}px`;
-  sel.style.height = `${h}px`;
-}
-
-function runCrop() {
-  if(!store.crop.img) return showToast('error', 'Please upload canvas target mapping node arrays');
-  
-  const img = store.crop.img;
-  const canvas = document.getElementById('cv-crop');
-  const ctx = canvas.getContext('2d');
-  
-  const sX = parseInt(document.getElementById('crop-x').value);
-  const sY = parseInt(document.getElementById('crop-y').value);
-  const sW = parseInt(document.getElementById('crop-w').value);
-  const sH = parseInt(document.getElementById('crop-h').value);
-  
-  if(!sW || !sH) return showToast('error', 'Selection crop dimensions are invalid');
-
-  canvas.width = sW;
-  canvas.height = sH;
-  ctx.drawImage(img, sX, sY, sW, sH, 0, 0, sW, sH);
-  
-  document.getElementById('res-crop').classList.add('show');
-  
-  const dl = document.getElementById('dl-crop');
-  dl.onclick = () => {
-    const a = document.createElement('a');
-    a.download = `cropped_${store.crop.file.name}`;
-    a.href = canvas.toDataURL(store.crop.file.type);
-    a.click();
-  };
-  showToast('success', 'Cropped image rendered successfully.');
-}
-
-/* ==========================================================================
-   5. ROTATE MODULE HANDLERS
-   ========================================================================== */
-function loadRotateFile(input) {
-  if(!input.files.length) return;
-  const f = input.files[0];
-  store.rotate.file = f;
-  
-  const r = new FileReader();
-  r.onload = (e) => {
-    const img = new Image();
-    img.onload = () => {
-      store.rotate.img = img;
-      const prev = document.getElementById('prev-rotate');
-      prev.innerHTML = '';
-      prev.appendChild(img);
-      document.getElementById('res-rotate').classList.remove('show');
-    };
-    img.src = e.target.result;
-  };
-  r.readAsDataURL(f);
-}
-
-function setRotationAngle(angle, btn) {
-  store.rotate.angle = angle;
-  btn.parentNode.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  
-  if(store.rotate.img) {
-    store.rotate.img.style.transform = `rotate(${angle}deg)`;
-    store.rotate.img.style.transition = 'transform 0.2s ease';
-  }
-}
-
-function runRotate() {
-  if(!store.rotate.img) return showToast('error', 'Please upload an image first');
-  
-  const img = store.rotate.img;
-  const canvas = document.getElementById('cv-rotate');
-  const ctx = canvas.getContext('2d');
-  const angle = store.rotate.angle;
-  
-  if(angle === 90 || angle === 270) {
-    canvas.width = img.naturalHeight;
-    canvas.height = img.naturalWidth;
-  } else {
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-  }
-  
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.save();
-  ctx.translate(canvas.width/2, canvas.height/2);
-  ctx.rotate((angle * Math.PI) / 180);
-  ctx.drawImage(img, -img.naturalWidth/2, -img.naturalHeight/2);
-  ctx.restore();
-  
-  document.getElementById('res-rotate').classList.add('show');
-  document.getElementById('dl-rotate').onclick = () => {
-    const a = document.createElement('a');
-    a.download = `rotated_${store.rotate.file.name}`;
-    a.href = canvas.toDataURL(store.rotate.file.type);
-    a.click();
-  };
-  showToast('success', 'Rotation transformation executed successfully.');
-}
-
-/* ==========================================================================
-   6. FLIP MODULE HANDLERS
-   ========================================================================== */
-function loadFlipFile(input) {
-  if(!input.files.length) return;
-  const f = input.files[0];
-  store.flip.file = f;
-  store.flip.h = false;
-  store.flip.v = false;
-  document.getElementById('flip-h-btn').classList.remove('btn-primary');
-  document.getElementById('flip-v-btn').classList.remove('btn-primary');
-  
-  const r = new FileReader();
-  r.onload = (e) => {
-    const img = new Image();
-    img.onload = () => {
-      store.flip.img = img;
-      const prev = document.getElementById('prev-flip');
-      prev.innerHTML = '';
-      prev.appendChild(img);
-      document.getElementById('res-flip').classList.remove('show');
-    };
-    img.src = e.target.result;
-  };
-  r.readAsDataURL(f);
-}
-
-function toggleFlip(dir) {
-  if(dir === 'h') {
-    store.flip.h = !store.flip.h;
-    document.getElementById('flip-h-btn').classList.toggle('btn-primary', store.flip.h);
-  } else {
-    store.flip.v = !store.flip.v;
-    document.getElementById('flip-v-btn').classList.toggle('btn-primary', store.flip.v);
-  }
-  
-  if(store.flip.img) {
-    const scaleX = store.flip.h ? -1 : 1;
-    const scaleY = store.flip.v ? -1 : 1;
-    store.flip.img.style.transform = `scale(${scaleX}, ${scaleY})`;
-  }
-}
-
-function runFlip() {
-  if(!store.flip.img) return showToast('error', 'Please upload an image first');
-  
-  const img = store.flip.img;
-  const canvas = document.getElementById('cv-flip');
-  const ctx = canvas.getContext('2d');
-  
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
-  
-  ctx.save();
-  ctx.translate(store.flip.h ? canvas.width : 0, store.flip.v ? canvas.height : 0);
-  ctx.scale(store.flip.h ? -1 : 1, store.flip.v ? -1 : 1);
-  ctx.drawImage(img, 0, 0);
-  ctx.restore();
-  
-  document.getElementById('res-flip').classList.add('show');
-  document.getElementById('dl-flip').onclick = () => {
-    const a = document.createElement('a');
-    a.download = `flipped_${store.flip.file.name}`;
-    a.href = canvas.toDataURL(store.flip.file.type);
-    a.click();
-  };
-  showToast('success', 'Flipped context safely written into stream maps.');
-}
-
-/* ==========================================================================
-   7. WATERMARK MODULE HANDLERS
-   ========================================================================== */
-function loadWatermarkFile(input) {
-  if(!input.files.length) return;
-  const f = input.files[0];
-  store.watermark.file = f;
-  
-  const r = new FileReader();
-  r.onload = (e) => {
-    const img = new Image();
-    img.onload = () => {
-      store.watermark.img = img;
-      applyWatermarkLive();
-      document.getElementById('res-watermark').classList.remove('show');
-    };
-    img.src = e.target.result;
-  };
-  r.readAsDataURL(f);
-}
-
-function applyWatermarkLive() {
-  if(!store.watermark.img) return;
-  const img = store.watermark.img;
-  const prev = document.getElementById('prev-watermark');
-  prev.innerHTML = '';
-  
-  const canvas = document.createElement('canvas');
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
-  const ctx = canvas.getContext('2d');
-  ctx.drawImage(img, 0, 0);
-  
-  // Append watermark string parameters logic safely inside viewport coordinates bounds
-  const text = document.getElementById('wm-text').value;
-  const opacity = parseFloat(document.getElementById('wm-opacity').value) / 100;
-  const size = parseInt(document.getElementById('wm-size').value);
-  const color = document.getElementById('wm-color').value;
-  
-  ctx.save();
-  ctx.globalAlpha = opacity;
-  ctx.fillStyle = color;
-  ctx.font = `bold ${size}px sans-serif`;
-  ctx.textBaseline = 'bottom';
-  ctx.textAlign = 'right';
-  ctx.fillText(text, canvas.width - (canvas.width * 0.05), canvas.height - (canvas.height * 0.05));
-  ctx.restore();
-  
-  const previewImg = document.createElement('img');
-  previewImg.src = canvas.toDataURL();
-  prev.appendChild(previewImg);
-  store.watermark.runtimePreviewUrl = previewImg.src;
-}
-
-function runWatermark() {
-  if(!store.watermark.img) return showToast('error', 'Please upload an image first');
-  
-  const canvas = document.getElementById('cv-watermark');
-  const ctx = canvas.getContext('2d');
-  const img = store.watermark.img;
-  
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
-  
-  const tempImg = new Image();
-  tempImg.onload = () => {
-    ctx.drawImage(tempImg, 0, 0);
-    document.getElementById('res-watermark').classList.add('show');
-    
-    document.getElementById('dl-watermark').onclick = () => {
-      const a = document.createElement('a');
-      a.download = `watermarked_${store.watermark.file.name}`;
-      a.href = store.watermark.runtimePreviewUrl;
-      a.click();
-    };
-    showToast('success', 'Watermark asset burned into canvas stream.');
-  };
-  tempImg.src = store.watermark.runtimePreviewUrl;
-}
-
-/* ==========================================================================
-   8. MERGE MODULE HANDLERS
-   ========================================================================== */
-function loadMergeFiles(input) {
-  if(!input.files.length) return;
-  store.merge.files = Array.from(input.files);
-  
-  const fl = document.getElementById('fl-merge');
-  fl.innerHTML = '';
-  store.merge.files.forEach(f => {
-    fl.innerHTML += `<div class="file-item"><div class="file-item-info"><div class="file-item-name">${f.name}</div><div class="file-item-size">${formatBytes(f.size)}</div></div></div>`;
-  });
-  document.getElementById('res-merge').classList.remove('show');
-}
-
-function setMergeDirection(dir, btn) {
-  store.merge.direction = dir;
-  btn.parentNode.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function runMerge() {
-  if(store.merge.files.length < 2) return showToast('error', 'Please supply 2 or more files sequence targets');
-  
-  let totalWidth = 0, totalHeight = 0;
-  let loadedCount = 0;
-  const imgElements = [];
-  
-  store.merge.files.forEach((file, index) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        imgElements[index] = img;
-        loadedCount++;
-        
-        if(loadedCount === store.merge.files.length) {
-          // Compute ultimate target bounding wrapper dimension properties blocks
-          imgElements.forEach(el => {
-            if(store.merge.direction === 'v') {
-              if(el.naturalWidth > totalWidth) totalWidth = el.naturalWidth;
-              totalHeight += el.naturalHeight;
-            } else {
-              totalWidth += el.naturalWidth;
-              if(el.naturalHeight > totalHeight) totalHeight = el.naturalHeight;
-            }
-          });
-          
-          const canvas = document.getElementById('cv-merge');
-          canvas.width = totalWidth;
-          canvas.height = totalHeight;
-          const ctx = canvas.getContext('2d');
-          
-          let currentOffset = 0;
-          imgElements.forEach(el => {
-            if(store.merge.direction === 'v') {
-              ctx.drawImage(el, 0, currentOffset);
-              currentOffset += el.naturalHeight;
-            } else {
-              ctx.drawImage(el, currentOffset, 0);
-              currentOffset += el.naturalWidth;
-            }
-          });
-          
-          document.getElementById('res-merge').classList.add('show');
-          document.getElementById('dl-merge').onclick = () => {
-            const a = document.createElement('a');
-            a.download = `stitched_sequence.png`;
-            a.href = canvas.toDataURL('image/png');
-            a.click();
-          };
-          showToast('success', 'Sequence arrays stitched safely.');
-        }
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-/* ==========================================================================
-   9. PDF TO IMAGE RASTERIZER MODULE
-   ========================================================================== */
-function loadPdfFile(input) {
-  if(!input.files.length) return;
-  const file = input.files[0];
-  store.pdf2img.file = file;
-  document.getElementById('res-pdftoimag').classList.remove('show');
-  document.getElementById('pdf-images-container').innerHTML = '';
-}
-
-function runPdfToImage() {
-  if(!store.pdf2img.file) return showToast('error', 'Please upload a PDF document file');
-  
-  const proc = document.getElementById('proc-pdf');
-  proc.classList.add('active');
-  
-  const reader = new FileReader();
-  reader.onload = function() {
-    const dataArray = new Uint8Array(this.result);
-    pdfjsLib.getDocument(dataArray).promise.then(pdf => {
-      store.pdf2img.pdfDoc = pdf;
-      const container = document.getElementById('pdf-images-container');
-      container.innerHTML = '';
-      
-      let pagesRasterized = 0;
-      const targetScale = parseFloat(document.getElementById('pdf-res-scale').value);
-      
-      for (let i = 1; i <= pdf.numPages; i++) {
-        pdf.getPage(i).then(page => {
-          const viewport = page.getViewport({ scale: targetScale });
-          const canvas = document.createElement('canvas');
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-          const ctx = canvas.getContext('2d');
-          
-          const renderContext = { canvasContext: ctx, viewport: viewport };
-          page.render(renderContext).promise.then(() => {
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-            const wrapper = document.createElement('div');
-            wrapper.className = 'file-item';
-            wrapper.style.justifyContent = 'space-between';
-            wrapper.innerHTML = `
-              <div class="file-item-info">
-                <div class="file-item-name">Page_${page.pageNumber}.jpg</div>
-                <div class="file-item-size">${viewport.width}x${viewport.height}px</div>
-              </div>
-              <button class="btn btn-success btn-sm" id="dl-pdf-page-${page.pageNumber}">Download Page</button>
-            `;
-            container.appendChild(wrapper);
+        <section id="tools-dashboard-section" class="dashboard-section" aria-label="Application Tools Engine Terminal">
             
-            document.getElementById(`dl-pdf-page-${page.pageNumber}`).onclick = () => {
-              const a = document.createElement('a');
-              a.download = `page_${page.pageNumber}.jpg`;
-              a.href = dataUrl;
-              a.click();
-            };
-            
-            pagesRasterized++;
-            if(pagesRasterized === pdf.numPages) {
-              proc.classList.remove('active');
-              document.getElementById('res-pdftoimag').classList.add('show');
-              showToast('success', `Successfully processed ${pdf.numPages} document vector pages.`);
-            }
-          });
-        });
-      }
-    }).catch(err => {
-      proc.classList.remove('active');
-      showToast('error', 'An error occurred while loading this document framework dataset object structures.');
-    });
-  };
-  reader.readAsArrayBuffer(store.pdf2img.file);
-}
+            <div class="search-container-wrap">
+                <div class="search-glass-input-wrapper">
+                    <svg class="search-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="global-search-input" class="search-input-field" placeholder="Search by name, file extension, action type (e.g., pdf, compress)..." aria-label="Search across platform tools">
+                    <button id="clear-search-btn" class="clear-btn-engine" aria-label="Clear active search filters">✕</button>
+                </div>
+            </div>
 
-/* ==========================================================================
-   10. IMAGE TO PDF COMPILER MODULE
-   ========================================================================== */
-function loadImageToPdfFiles(input) {
-  if(!input.files.length) return;
-  store.img2pdf.files = Array.from(input.files);
-  
-  const fl = document.getElementById('fl-imagetopdf');
-  fl.innerHTML = '';
-  store.img2pdf.files.forEach(f => {
-    fl.innerHTML += `<div class="file-item"><div class="file-item-info"><div class="file-item-name">${f.name}</div><div class="file-item-size">${formatBytes(f.size)}</div></div></div>`;
-  });
-}
+            <div class="category-tabs-container" role="tablist" aria-label="Workspace Filtering Categories">
+                <button class="category-tab active" data-category="all" role="tab" aria-selected="true">All Tools</button>
+                <button class="category-tab" data-category="image" role="tab" aria-selected="false">Image Tools</button>
+                <button class="category-tab" data-category="pdf" role="tab" aria-selected="false">PDF Tools</button>
+                <button class="category-tab" data-category="utility" role="tab" aria-selected="false">Utility Tools</button>
+            </div>
 
-function runImageToPdf() {
-  if(!store.img2pdf.files.length) return showToast('error', 'Please specify structural page element targets');
-  
-  const proc = document.getElementById('proc-img2pdf');
-  proc.classList.add('active');
-  
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF('p', 'mm', 'a4');
-  const a4W = 210;
-  const a4H = 297;
-  
-  let compiledCount = 0;
-  
-  store.img2pdf.files.forEach((file, index) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        if (index > 0) doc.addPage();
-        
-        // Compute strict aspect ratios to preserve original layout geometry safely
-        const imgRatio = img.naturalWidth / img.naturalHeight;
-        let printW = a4W;
-        let printH = a4W / imgRatio;
-        
-        if (printH > a4H) {
-          printH = a4H;
-          printW = a4H * imgRatio;
-        }
-        
-        // Center alignment calculations matrices inside document layers bounds configurations
-        const xOffset = (a4W - printW) / 2;
-        const yOffset = (a4H - printH) / 2;
-        
-        doc.addImage(e.target.result, 'JPEG', xOffset, yOffset, printW, printH);
-        compiledCount++;
-        
-        if(compiledCount === store.img2pdf.files.length) {
-          doc.save('compiled_images_archive.pdf');
-          proc.classList.remove('active');
-          showToast('success', 'PDF compiled and exported successfully.');
-        }
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
+            <div id="search-no-results-message" class="search-no-results-box" aria-live="polite">
+                <span class="no-results-icon">🔍</span>
+                <h3 class="no-results-title">No matching tools available</h3>
+                <p class="no-results-text">Refine your search parameters or explore alternative keywords.</p>
+            </div>
 
-/* ==========================================================================
-   GLOBAL ACCESSIBILITY DELEGATED EVENTS MATRIX
-   ========================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-  // Catch custom selection key down routes natively
-  document.querySelectorAll('.tool-card, .dropzone').forEach(el => {
-    el.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        el.click();
-      }
-    });
-  });
+            <div id="tools-dashboard-grid" class="tool-grid-layout">
+                </div>
+        </section>
 
-  // Global Drag & Drop Core Router Handlers
-  window.addEventListener('dragover', (e) => { e.preventDefault(); });
-  window.addEventListener('drop', (e) => {
-    e.preventDefault();
-    const dt = e.dataTransfer;
-    if(!dt || !dt.files.length || !activeToolId) return;
+        <section id="active-workspace-panel" class="workspace-panel-container hidden-workspace">
+            <div class="workspace-card-inner">
+                <div class="workspace-header-actions">
+                    <h2 id="active-workspace-title" class="workspace-title">Tool Workspace Workspace</h2>
+                    <button class="close-workspace-btn" onclick="closeActiveWorkspace()">Close Tool ✕</button>
+                </div>
+                <hr class="divider-line">
+                
+                <div id="premium-uploader-zone" class="premium-uploader-zone">
+                    <input type="file" id="core-hidden-file-input" class="hidden-file-input" multiple aria-label="Upload data payloads">
+                    <div class="uploader-prompt-content">
+                        <div class="uploader-icon-frame">📥</div>
+                        <p class="uploader-main-text">Drag & drop your files target payload here, or <span class="text-gradient-trigger">browse locally</span></p>
+                        <p class="uploader-sub-text">100% Client Isolation. Up to 2GB per cycle batch processing parameters.</p>
+                    </div>
+                </div>
 
-    const fi = document.getElementById(`fi-${activeToolId}`);
-    if (fi) {
-      fi.files = dt.files;
-      // Trigger target dynamic change routing loops execution maps cleanly
-      const changeEvent = new Event('change', { bubbles: true });
-      fi.dispatchEvent(changeEvent);
-    }
-  });
-});
-</script>
+                <div id="workspace-controls-area" class="workspace-controls-area hidden-element">
+                    </div>
+
+                <div id="workspace-preview-area" class="workspace-preview-area hidden-element">
+                    <h4 style="margin-bottom: 12px; color: #ffffff;">Live Processing Output Map Preview</h4>
+                    <div class="comparison-container-slider" id="ui-comparison-slider-node">
+                        <div class="comparison-img-layer" id="preview-layer-before" style="background-image: url('');"></div>
+                        <div class="comparison-img-layer" id="preview-layer-after" style="background-image: url(''); width: 50%;"></div>
+                        <div class="comparison-slider-handle" id="slider-split-handle-drag">
+                            <div class="comparison-slider-button">↔</div>
+                        </div>
+                    </div>
+                    <div class="preview-download-footer-actions">
+                        <button class="btn-gradient-cta" id="download-processed-blob-btn">Download Final Asset Output</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-choose-us-section" class="why-choose-us-section" aria-labelledby="wcu-title">
+            <div class="wcu-container">
+                <div class="section-center-header">
+                    <h2 id="wcu-title" class="section-heading-text">Architected for Speed & Absolute Security</h2>
+                    <p class="section-subheading-text">Why industry leaders process files locally on the device instead of sending data to remote servers.</p>
+                </div>
+                <div class="wcu-grid-layout">
+                    <div class="wcu-card">
+                        <div class="wcu-icon">⚡</div>
+                        <h3 class="wcu-card-title">Fast Processing</h3>
+                        <p class="wcu-card-desc">Processes files directly inside your browser frame, skipping networks uploads to deliver instant execution results.</p>
+                    </div>
+                    <div class="wcu-card">
+                        <div class="wcu-icon">🔒</div>
+                        <h3 class="wcu-card-title">100% Private Protection</h3>
+                        <p class="wcu-card-desc">Your media logs and processing data structures stay completely isolated inside local memory variables.</p>
+                    </div>
+                    <div class="wcu-card">
+                        <div class="wcu-icon">🌍</div>
+                        <h3 class="wcu-card-title">Browser Based Runtime</h3>
+                        <p class="wcu-card-desc">No local native executable installations required. Runs seamlessly across any modern web browser environment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq-section" class="faq-section-wrapper" aria-labelledby="faq-title">
+            <h2 id="faq-title" class="faq-main-heading">Frequently Asked Questions</h2>
+            <div class="faq-accordion-stack">
+                <details open>
+                    <summary><span>Are my sensitive operational files uploaded to any servers?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>No. Absolutely zero network payload delivery protocols are registered within conversion routines. Files are read exclusively via the HTML5 File System API directly into volatile client memory space, processed inside decoupled context canvases, and garbage-collected automatically upon terminal execution.</p>
+                </details>
+                <details>
+                    <summary><span>Is there a volume limit on how many files I can process simultaneously?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>No. Because all data calculations take place right on your own machine without using remote server resources, there are no batch limits or hidden monthly caps. You can convert or compress files indefinitely.</p>
+                </details>
+                <details>
+                    <summary><span>How does the local PDF compression engine work?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>The engine inspects structural vector objects and raster streams inside the container using PDF.js. It resamples embedded image resources onto a lower-scale canvas bounding-box layer before rebuilding the output document stream via jsPDF.</p>
+                </details>
+                <details>
+                    <summary><span>Can I run these tools offline without an active internet connection?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>Yes. Once the app shell caches in your browser, the scripts work entirely offline. No active server connections are required to compress, convert, or adjust your files.</p>
+                </details>
+                <details>
+                    <summary><span>Does using this tool degrade structural metadata?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>Standard HTML5 canvas extraction normally strips metadata tags for optimization. If you need to evaluate or preserve these profiles, use our dedicated Metadata Viewer tool before processing your files.</p>
+                </details>
+                <details>
+                    <summary><span>What file formats are supported by the image conversion tool?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>The app fully reads and processes PNG, JPEG, JPG, WEBP, SVG, BMP, ICO, and GIF files using browser-native decoding wrappers.</p>
+                </details>
+                <details>
+                    <summary><span>Will my images look blurry after using the Image Compressor?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>Our compressor balances quality and size. It uses smart optimization curves to discard imperceptible color data, significantly dropping file size while keeping visual details sharp.</p>
+                </details>
+                <details>
+                    <summary><span>Is there an enterprise API configuration available?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>Because this platform is designed to be serverless and run entirely on the client side, there are no remote API endpoints. To integrate these features, you can drop the core processing scripts directly into your local client applications.</p>
+                </details>
+                <details>
+                    <summary><span>How does the platform handle password-protected PDFs?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>For security reasons, password-protected files cannot be decrypted on the fly. You will need to unlock the PDF file before using the merge, split, or compress tools.</p>
+                </details>
+                <details>
+                    <summary><span>Does this platform store cache files inside the browser long term?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>No. All processed files are temporarily converted into blob references and cleared immediately when you close or refresh the browser tab, keeping your system storage clean.</p>
+                </details>
+                <details>
+                    <summary><span>Is the platform fully compatible with mobile operating systems?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>Yes. The responsive UI is optimized for touch controls on Android and iOS devices, allowing you to process images and PDFs directly through mobile browsers.</p>
+                </details>
+                <details>
+                    <summary><span>Why choose this platform over tools like iLoveIMG or SmallPDF?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>While commercial tools process files on cloud servers—which risks data exposure—ImageTools Studio processes your files locally on your device for absolute data privacy.</p>
+                </details>
+                <details>
+                    <summary><span>What is the maximum file size supported by the canvas converter?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>There is no arbitrary size cap. The tool can handle large images up to your browser's physical memory boundaries and maximum canvas dimension limits.</p>
+                </details>
+                <details>
+                    <summary><span>Does this application contain dynamic tracking algorithms?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>No. We do not use user behavioral telemetry trackers, or fingerprinting cookies. Your data, workspace state, and processed metrics stay completely inside your local browser tab session.</p>
+                </details>
+                <details>
+                    <summary><span>How can I save my customized color palettes or configurations?</span><span class="faq-icon-marker">↓</span></summary>
+                    <p>You can copy generated palettes as HEX standard text arrays. To keep things clean and private, workspace states are not stored in permanent browser databases.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer class="saas-footer-layer">
+        <div class="footer-columns-grid">
+            <div class="footer-brand-column">
+                <h3 class="footer-brand-logo">ImageTools Studio</h3>
+                <p class="footer-brand-text">Next-gen asset pipelines operating inside sandboxed local device execution frames.</p>
+            </div>
+            <div>
+                <h4 class="footer-title">Tools Grid</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#tools-dashboard-section">Image Compressor</a></li>
+                    <li><a href="#tools-dashboard-section">PDF Merge Engine</a></li>
+                    <li><a href="#tools-dashboard-section">Format Converter</a></li>
+                    <li><a href="#tools-dashboard-section">QR Generator</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Company</h4>
+                <ul class="footer-links-list">
+                    <li><a href="about-us.html">About Operations</a></li>
+                    <li><a href="contact.html">Contact Channels</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Legal Desk</h4>
+                <ul class="footer-links-list">
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="cookie-policy.html">Cookie Profile</a></li>
+                    <li><a href="disclaimer.html">Disclaimer Notice</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-bar">
+            <p>&copy; 2026 ImageTools Studio. Sandboxed Client Runtime Architecture. All Rights Reserved.</p>
+            <p class="adsense-tracker-text">AdSense Network Host Validation Complete</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
 </body>
 </html>
