@@ -824,4 +824,43 @@
         
         handle.style.pointerEvents = 'auto';
         handle.querySelector('.slider-btn').onmousedown = (e) => { e.preventDefault(); isDragging = true; };
-        handle.querySelector('.slider-btn').ontouchstart = (e) => { e.preventDefault(); isDragging = true
+        handle.querySelector('.slider-btn').ontouchstart = (e) => { e.preventDefault(); isDragging = true; };
+        window.onmousemove = onMouseMove;
+        window.ontouchmove = onTouchMove;
+        window.onmouseup = () => { isDragging = false; };
+        window.ontouchend = () => { isDragging = false; };
+    }
+
+    window.closeWorkspace = () => {
+        document.getElementById('workspace').classList.add('hidden');
+        if(currentOriginalUrl) URL.revokeObjectURL(currentOriginalUrl);
+        currentTool = null;
+        currentFile = null;
+    };
+
+    // Event Listeners
+    document.getElementById('securityInfo').onclick = () => alert('🔒 Security: All processing happens locally in your browser. No files are uploaded to any server. 100% private and secure.');
+    document.getElementById('faqInfo').onclick = () => alert('❓ FAQ: All tools are free, no watermarks, supports up to 2GB files, works offline once loaded.');
+    document.getElementById('learnMore').onclick = () => alert('✨ How it works: Select a tool, upload your file, adjust settings, preview the result, and download. Everything runs client-side using JavaScript and Canvas.');
+    
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearch');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    let activeCat = 'all';
+    
+    const updateTools = () => renderTools(searchInput.value, activeCat);
+    searchInput.oninput = updateTools;
+    clearBtn.onclick = () => { searchInput.value = ''; updateTools(); };
+    categoryBtns.forEach(btn => {
+        btn.onclick = () => {
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeCat = btn.dataset.cat;
+            updateTools();
+        };
+    });
+    
+    renderTools();
+</script>
+</body>
+</html>
