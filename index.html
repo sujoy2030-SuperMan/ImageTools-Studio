@@ -10,13 +10,11 @@
     <meta name="robots" content="index, follow">
     <meta name="language" content="English, Hindi">
     
-    <!-- Open Graph Tags -->
     <meta property="og:title" content="ImageTools Studio - Free Image & PDF Tools">
     <meta property="og:description" content="100% Free tools to compress, convert, merge images and PDFs. No registration, works on mobile.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ImageTools Studio">
     
-    <!-- Schema Markup -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -522,6 +520,7 @@
         .preview-area {
             display: none;
             margin: 1rem 0;
+            text-align: center;
         }
 
         .preview-img {
@@ -550,7 +549,6 @@
 </nav>
 
 <main>
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1>Free Image & PDF Tools</h1>
@@ -569,7 +567,6 @@
     </section>
 
     <div class="container">
-        <!-- Stats -->
         <div class="stats">
             <div class="stat-card"><div class="stat-number">25+</div><div class="stat-label">Free Tools</div></div>
             <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Browser Based</div></div>
@@ -577,7 +574,6 @@
             <div class="stat-card"><div class="stat-number">📱</div><div class="stat-label">Mobile Friendly</div></div>
         </div>
 
-        <!-- Search -->
         <div class="search-section">
             <div class="search-box">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -585,7 +581,6 @@
             </div>
         </div>
 
-        <!-- Categories -->
         <div class="categories">
             <button class="category-btn active" data-cat="all">🔥 All Tools</button>
             <button class="category-btn" data-cat="image">📸 Image Tools</button>
@@ -593,15 +588,12 @@
             <button class="category-btn" data-cat="utility">⚡ Utility Tools</button>
         </div>
 
-        <!-- Popular Tools Section -->
         <h2 class="section-title">⭐ Popular Tools</h2>
         <div id="popularGrid" class="tools-grid"></div>
 
-        <!-- All Tools Section -->
         <h2 id="all-tools" class="section-title">🛠️ All Tools</h2>
         <div id="allToolsGrid" class="tools-grid"></div>
 
-        <!-- Why Choose Us -->
         <h2 class="section-title">✅ Why Choose Us</h2>
         <div class="why-grid">
             <div class="why-card"><div class="why-icon">🔒</div><h3>100% Secure</h3><p>Your files never leave your device</p></div>
@@ -610,7 +602,6 @@
             <div class="why-card"><div class="why-icon">💰</div><h3>Completely Free</h3><p>No hidden charges</p></div>
         </div>
 
-        <!-- How It Works -->
         <h2 class="section-title">📖 How It Works</h2>
         <div class="steps">
             <div class="step"><div class="step-number">1</div><h3>Select Tool</h3><p>Choose from 25+ tools</p></div>
@@ -618,13 +609,11 @@
             <div class="step"><div class="step-number">3</div><h3>Download Result</h3><p>Get your processed file</p></div>
         </div>
 
-        <!-- FAQ -->
         <h2 class="section-title">❓ Frequently Asked Questions</h2>
         <div class="faq-item"><div class="faq-question">Is this really free? <span>+</span></div><div class="faq-answer">Yes! All tools are 100% free with no watermarks or limits.</div></div>
         <div class="faq-item"><div class="faq-question">Do you store my files? <span>+</span></div><div class="faq-answer">No, all processing happens in your browser. Files never leave your device.</div></div>
         <div class="faq-item"><div class="faq-question">Can I use on mobile? <span>+</span></div><div class="faq-answer">Yes! Our website works perfectly on all smartphones.</div></div>
 
-        <!-- Contact -->
         <h2 id="contact" class="section-title">📧 Contact Us</h2>
         <div class="contact-form">
             <input type="text" placeholder="Your Name" id="contactName">
@@ -646,7 +635,6 @@
     </div>
 </footer>
 
-<!-- Modal -->
 <div id="workspaceModal" class="workspace-overlay">
     <div class="workspace-modal">
         <div class="workspace-header">
@@ -660,7 +648,7 @@
         </div>
         <div id="modalControls" style="display:none;"></div>
         <div id="modalPreview" class="preview-area"></div>
-        <button id="modalDownloadBtn" class="use-btn" style="display:none;">📥 Download Result</button>
+        <button id="modalDownloadBtn" class="use-btn" style="display:none; margin-top: 1rem;">📥 Download Result</button>
     </div>
 </div>
 
@@ -669,29 +657,18 @@
 
     const tools = [
         { id: 'compress', name: 'Compress Image', category: 'image', desc: 'Reduce image size without losing quality', icon: '🗜️', popular: true },
-        { id: 'resize', name: 'Resize Image', category: 'image', desc: 'Change image dimensions easily', icon: '📏', popular: true },
         { id: 'jpg-to-png', name: 'JPG to PNG', category: 'image', desc: 'Convert JPG to transparent PNG', icon: '🖼️', popular: true },
         { id: 'png-to-jpg', name: 'PNG to JPG', category: 'image', desc: 'Convert PNG to JPG format', icon: '🔄', popular: true },
-        { id: 'crop', name: 'Crop Image', category: 'image', desc: 'Cut unwanted parts from image', icon: '✂️' },
-        { id: 'rotate', name: 'Rotate Image', category: 'image', desc: 'Rotate image left or right', icon: '🔄' },
-        { id: 'webp', name: 'WEBP Converter', category: 'image', desc: 'Convert to/from WEBP format', icon: '🌐' },
-        { id: 'filters', name: 'Image Filters', category: 'image', desc: 'Apply grayscale, sepia, brightness', icon: '🎨' },
-        { id: 'watermark', name: 'Watermark Tool', category: 'image', desc: 'Add text watermark to images', icon: '💧' },
-        { id: 'image-to-pdf', name: 'Image to PDF', category: 'image', desc: 'Convert images to PDF file', icon: '📄' },
+        { id: 'grayscale', name: 'Grayscale Filter', category: 'image', desc: 'Convert your assets into classic black and white', icon: '🏁' },
+        { id: 'sepia', name: 'Sepia Filter', category: 'image', desc: 'Infuse warm, nostalgic reddish-brown tones', icon: '📜' },
+        { id: 'brightness', name: 'Brightness Adjustment', category: 'image', desc: 'Lighten image lighting exposures dynamically', icon: '☀️' },
         { id: 'pdf-merge', name: 'Merge PDF', category: 'pdf', desc: 'Combine multiple PDF files', icon: '📚', popular: true },
-        { id: 'pdf-split', name: 'Split PDF', category: 'pdf', desc: 'Split PDF into separate pages', icon: '✂️', popular: true },
-        { id: 'pdf-compress', name: 'Compress PDF', category: 'pdf', desc: 'Reduce PDF file size', icon: '🗜️' },
-        { id: 'pdf-to-jpg', name: 'PDF to JPG', category: 'pdf', desc: 'Convert PDF pages to images', icon: '🖼️' },
-        { id: 'jpg-to-pdf', name: 'JPG to PDF', category: 'pdf', desc: 'Convert JPG images to PDF', icon: '📄', popular: true },
-        { id: 'pdf-protect', name: 'PDF Password', category: 'pdf', desc: 'Add password to PDF', icon: '🔒' },
-        { id: 'pdf-unlock', name: 'PDF Unlock', category: 'pdf', desc: 'Remove PDF password', icon: '🔓' },
-        { id: 'qr-generator', name: 'QR Generator', category: 'utility', desc: 'Create QR codes from text/URL', icon: '📱', popular: true },
-        { id: 'barcode', name: 'Barcode Generator', category: 'utility', desc: 'Generate barcode for products', icon: '📊' },
-        { id: 'color-picker', name: 'Color Picker', category: 'utility', desc: 'Pick colors from images', icon: '🎨' }
+        { id: 'qr-generator', name: 'QR Generator', category: 'utility', desc: 'Create QR codes from text/URL', icon: '📱', popular: true }
     ];
 
-    let currentFile = null;
-    let currentResult = null;
+    let currentFiles = []; // dynamic files storage
+    let currentResultBlob = null;
+    let activeToolId = null;
 
     function renderTools() {
         const search = document.getElementById('searchInput').value.toLowerCase();
@@ -718,142 +695,203 @@
 
     window.openTool = (toolId) => {
         const tool = tools.find(t => t.id === toolId);
+        activeToolId = toolId;
+        currentFiles = [];
+        currentResultBlob = null;
+
         document.getElementById('modalTitle').innerText = tool.name;
         document.getElementById('workspaceModal').style.display = 'flex';
         document.getElementById('modalControls').style.display = 'none';
         document.getElementById('modalPreview').style.display = 'none';
         document.getElementById('modalDownloadBtn').style.display = 'none';
-        document.getElementById('modalUpload').style.display = 'block';
-        currentFile = null;
         
+        const fileInput = document.getElementById('modalFileInput');
+        fileInput.value = ""; // reset file input
+
+        if (toolId === 'pdf-merge') {
+            fileInput.setAttribute('multiple', 'true');
+            document.getElementById('modalUpload').style.display = 'block';
+            document.getElementById('modalUpload').innerHTML = `<div>📂 Click to Select Multiple PDFs</div><small>Upload 2 or more PDF files</small>`;
+        } else {
+            fileInput.removeAttribute('multiple');
+            document.getElementById('modalUpload').innerHTML = `<div>📂 Click or Drag & Drop</div><small>Upload your file here</small>`;
+        }
+
         if (toolId === 'qr-generator') {
             document.getElementById('modalUpload').style.display = 'none';
             document.getElementById('modalControls').style.display = 'block';
-            document.getElementById('modalControls').innerHTML = `<input type="text" id="qrText" placeholder="Enter text or URL" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:0.5rem; border:1px solid #ddd;"><button class="use-btn" onclick="generateQR()">Generate QR Code</button>`;
+            document.getElementById('modalControls').innerHTML = `
+                <input type="text" id="qrText" placeholder="Enter text or URL" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:0.5rem; border:1px solid #ddd;">
+                <button class="use-btn" onclick="generateQR()">Generate QR Code</button>
+            `;
         } else {
-            const fileInput = document.getElementById('modalFileInput');
+            document.getElementById('modalUpload').style.display = 'block';
             const uploadDiv = document.getElementById('modalUpload');
             uploadDiv.onclick = () => fileInput.click();
-            fileInput.onchange = (e) => {
-                if (e.target.files[0]) {
-                    currentFile = e.target.files[0];
-                    if (toolId === 'compress') compressImage();
-                    else if (toolId === 'jpg-to-png') convertToPng();
-                    else if (toolId === 'png-to-jpg') convertToJpg();
-                    else if (toolId === 'grayscale') applyFilter('grayscale');
-                    else if (toolId === 'sepia') applyFilter('sepia');
-                    else if (toolId === 'brightness') applyFilter('brightness');
-                    else if (toolId === 'pdf-merge') alert('Upload multiple PDFs to merge');
-                    else alert('Tool ready! Upload your file');
-                }
-            };
         }
     };
 
-    function compressImage() {
-        const img = new Image();
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            canvas.getContext('2d').drawImage(img, 0, 0);
-            canvas.toBlob(blob => showResult(blob), 'image/jpeg', 0.7);
-        };
-        img.src = URL.createObjectURL(currentFile);
-    }
+    // File Input change trigger
+    document.getElementById('modalFileInput').onchange = (e) => {
+        if (e.target.files.length > 0) {
+            currentFiles = Array.from(e.target.files);
+            processPipeline();
+        }
+    };
 
-    function convertToPng() {
-        const img = new Image();
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            canvas.getContext('2d').drawImage(img, 0, 0);
-            canvas.toBlob(blob => showResult(blob), 'image/png');
-        };
-        img.src = URL.createObjectURL(currentFile);
-    }
+    async function processPipeline() {
+        if (currentFiles.length === 0) return;
 
-    function convertToJpg() {
-        const img = new Image();
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            canvas.getContext('2d').fillStyle = 'white';
-            canvas.getContext('2d').fillRect(0, 0, canvas.width, canvas.height);
-            canvas.getContext('2d').drawImage(img, 0, 0);
-            canvas.toBlob(blob => showResult(blob), 'image/jpeg', 0.9);
-        };
-        img.src = URL.createObjectURL(currentFile);
-    }
+        if (activeToolId === 'pdf-merge') {
+            if (currentFiles.length < 2) {
+                alert('Please select at least 2 PDF files to merge.');
+                return;
+            }
+            await mergePdfFiles();
+            return;
+        }
 
-    function applyFilter(type) {
+        // For image operations
+        const file = currentFiles[0];
         const img = new Image();
         img.onload = () => {
             const canvas = document.createElement('canvas');
             canvas.width = img.width;
             canvas.height = img.height;
             const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-            const data = ctx.getImageData(0,0,canvas.width,canvas.height);
-            if (type === 'grayscale') {
-                for(let i=0;i<data.data.length;i+=4){
-                    let g = 0.299*data.data[i]+0.587*data.data[i+1]+0.114*data.data[i+2];
-                    data.data[i]=data.data[i+1]=data.data[i+2]=g;
+
+            if (activeToolId === 'compress') {
+                ctx.drawImage(img, 0, 0);
+                canvas.toBlob(blob => showResult(blob, 'image/jpeg'), 'image/jpeg', 0.6);
+            } 
+            else if (activeToolId === 'jpg-to-png') {
+                ctx.drawImage(img, 0, 0);
+                canvas.toBlob(blob => showResult(blob, 'image/png'), 'image/png');
+            } 
+            else if (activeToolId === 'png-to-jpg') {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+                canvas.toBlob(blob => showResult(blob, 'image/jpeg'), 'image/jpeg', 0.9);
+            } 
+            else if (['grayscale', 'sepia', 'brightness'].includes(activeToolId)) {
+                ctx.drawImage(img, 0, 0);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+
+                if (activeToolId === 'grayscale') {
+                    for (let i = 0; i < data.length; i += 4) {
+                        let g = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+                        data[i] = data[i + 1] = data[i + 2] = g;
+                    }
+                } else if (activeToolId === 'sepia') {
+                    for (let i = 0; i < data.length; i += 4) {
+                        let r = data[i], g = data[i + 1], b = data[i + 2];
+                        data[i] = Math.min(255, r * 0.393 + g * 0.769 + b * 0.189);
+                        data[i + 1] = Math.min(255, r * 0.349 + g * 0.686 + b * 0.168);
+                        data[i + 2] = Math.min(255, r * 0.272 + g * 0.534 + b * 0.131);
+                    }
+                } else if (activeToolId === 'brightness') {
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, data[i] + 40);
+                        data[i + 1] = Math.min(255, data[i + 1] + 40);
+                        data[i + 2] = Math.min(255, data[i + 2] + 40);
+                    }
                 }
-            } else if (type === 'sepia') {
-                for(let i=0;i<data.data.length;i+=4){
-                    let r=data.data[i], g=data.data[i+1], b=data.data[i+2];
-                    data.data[i]=Math.min(255, r*0.393+g*0.769+b*0.189);
-                    data.data[i+1]=Math.min(255, r*0.349+g*0.686+b*0.168);
-                    data.data[i+2]=Math.min(255, r*0.272+g*0.534+b*0.131);
-                }
-            } else if (type === 'brightness') {
-                for(let i=0;i<data.data.length;i+=4){
-                    data.data[i]=Math.min(255, data.data[i]+40);
-                    data.data[i+1]=Math.min(255, data.data[i+1]+40);
-                    data.data[i+2]=Math.min(255, data.data[i+2]+40);
+                ctx.putImageData(imageData, 0, 0);
+                canvas.toBlob(blob => showResult(blob, 'image/png'), 'image/png');
+            }
+        };
+        img.src = URL.createObjectURL(file);
+    }
+
+    async function mergePdfFiles() {
+        try {
+            const { jsPDF } = window.jspdf;
+            const mergedPdf = new jsPDF();
+            let isFirstPage = true;
+
+            for (let i = 0; i < currentFiles.length; i++) {
+                const fileBuffer = await currentFiles[i].arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: fileBuffer }).promise;
+                
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: 2 });
+                    
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+                    if (!isFirstPage) {
+                        mergedPdf.addPage();
+                    } else {
+                        isFirstPage = false;
+                    }
+
+                    const pdfWidth = mergedPdf.internal.pageSize.getWidth();
+                    const pdfHeight = mergedPdf.internal.pageSize.getHeight();
+                    mergedPdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
                 }
             }
-            ctx.putImageData(data,0,0);
-            canvas.toBlob(blob => showResult(blob), 'image/png');
-        };
-        img.src = URL.createObjectURL(currentFile);
+
+            const pdfBlob = mergedPdf.output('blob');
+            showResult(pdfBlob, 'application/pdf');
+        } catch (error) {
+            alert('Error merging PDFs: ' + error.message);
+        }
     }
 
     window.generateQR = () => {
         const text = document.getElementById('qrText').value;
-        if(!text) return alert('Enter text or URL');
+        if (!text) return alert('Enter text or URL');
         const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(text)}`;
         const img = new Image();
+        img.crossOrigin = "anonymous"; 
         img.onload = () => {
             const canvas = document.createElement('canvas');
-            canvas.width=300; canvas.height=300;
-            canvas.getContext('2d').drawImage(img,0,0);
-            canvas.toBlob(blob => showResult(blob), 'image/png');
+            canvas.width = 300; canvas.height = 300;
+            canvas.getContext('2d').drawImage(img, 0, 0);
+            canvas.toBlob(blob => showResult(blob, 'image/png'), 'image/png');
         };
+        img.onerror = () => alert('Failed to generate QR Code. Check internet connection.');
         img.src = qrUrl;
     };
 
-    function showResult(blob) {
-        currentResult = blob;
+    function showResult(blob, mimeType) {
+        currentResultBlob = blob;
         const url = URL.createObjectURL(blob);
         document.getElementById('modalUpload').style.display = 'none';
-        document.getElementById('modalPreview').innerHTML = `<img src="${url}" class="preview-img" style="max-width:100%; border-radius:1rem;">`;
-        document.getElementById('modalPreview').style.display = 'block';
-        document.getElementById('modalDownloadBtn').style.display = 'block';
-        document.getElementById('modalDownloadBtn').onclick = () => {
+        document.getElementById('modalControls').style.display = 'none';
+        
+        const previewDiv = document.getElementById('modalPreview');
+        previewDiv.style.display = 'block';
+
+        if (mimeType.startsWith('image/')) {
+            previewDiv.innerHTML = `<img src="${url}" class="preview-img" alt="Result Preview">`;
+        } else if (mimeType === 'application/pdf') {
+            previewDiv.innerHTML = `<div style="padding: 2rem; background: #f1f5f9; border-radius: 0.5rem; font-weight: 600; color: #334155;">📄 PDF Generated Successfully (${(blob.size / 1024).toFixed(1)} KB)</div>`;
+        }
+
+        const downloadBtn = document.getElementById('modalDownloadBtn');
+        downloadBtn.style.display = 'block';
+        downloadBtn.onclick = () => {
             const a = document.createElement('a');
-            a.href = URL.createObjectURL(currentResult);
-            a.download = `output_${Date.now()}.png`;
+            a.href = url;
+            const ext = mimeType === 'application/pdf' ? 'pdf' : 'png';
+            a.download = `imagetools_${Date.now()}.${ext}`;
             a.click();
         };
     }
 
     window.closeModal = () => {
         document.getElementById('workspaceModal').style.display = 'none';
-        if(currentResult) URL.revokeObjectURL(URL.createObjectURL(currentResult));
+        currentFiles = [];
+        currentResultBlob = null;
     };
 
     window.sendContact = () => {
@@ -868,7 +906,7 @@
         q.onclick = () => q.nextElementSibling.classList.toggle('show');
     });
 
-    // Search & Category
+    // Search & Category Input Event
     document.getElementById('searchInput').oninput = renderTools;
     document.querySelectorAll('.category-btn').forEach(btn => {
         btn.onclick = () => {
