@@ -97,17 +97,35 @@ const ImageToolsStudio = (() => {
         injectDynamicToolControls();
     };
 
+    // 🌟 স্লাইডার মুভমেন্ট ফিক্সড জাভাস্ক্রিপ্ট 🌟
     const setupComparisonSlider = () => {
         const slider = document.getElementById('ui-comparison-slider-node');
         const afterLayer = document.getElementById('preview-layer-after');
-        if (!slider || !afterLayer) return;
+        const handleDrag = document.getElementById('slider-split-handle-drag');
+
+        if (!slider || !afterLayer || !handleDrag) return;
+
+        const moveSlider = (clientX) => {
+            const rect = slider.getBoundingClientRect();
+            const positionX = clientX - rect.left;
+            
+            let percentage = (positionX / rect.width) * 100;
+            if (percentage < 0) percentage = 0;
+            if (percentage > 100) percentage = 100;
+
+            afterLayer.style.width = `${percentage}%`;
+            handleDrag.style.left = `${percentage}%`;
+        };
 
         slider.addEventListener('mousemove', (e) => {
-            const rect = slider.getBoundingClientRect();
-            const positionX = e.clientX - rect.left;
-            const percentage = Math.max(0, Math.min((positionX / rect.width) * 100, 100));
-            afterLayer.style.width = `${percentage}%`;
+            moveSlider(e.clientX);
         });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                moveSlider(e.touches[0].clientX);
+            }
+        }, { passive: true });
     };
 
     return { init, registry: toolRegistry, state };
@@ -164,7 +182,7 @@ function injectDynamicToolControls() {
         case 'brightness':
             contextHtmlOptions = `
                 <div class="control-group">
-                    <label>Exposure Offset Delta</label>
+                    <label>Luminosity Exposure Delta Slider Accent</label>
                     <input type="range" id="param-brightness" min="-100" max="100" value="20" class="control-input">
                 </div>
                 <button class="btn-gradient-cta" onclick="executeActiveWorkspacePipeline()">Apply Brightness Adjustments</button>
