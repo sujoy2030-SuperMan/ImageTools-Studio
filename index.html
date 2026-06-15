@@ -5,84 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImageTools Studio | Free SaaS Batch Image & PDF Processor</title>
     <meta name="description" content="Professional-grade, 100% browser-based suite for lightning-fast image compression, conversions, PDF splits, joins, QR code generation, and filter mechanics safely without uploads.">
-    <meta name="keywords" content="image compressor, merge pdf, clear metadata, resize converter, client side processing, privacy tools">
-    <link rel="canonical" href="https://imagetools.studio/">
-
-    <meta property="og:site_name" content="ImageTools Studio">
-    <meta property="og:title" content="ImageTools Studio | Professional Browser-Based Asset Suite">
-    <meta property="og:description" content="Optimize, transform, crop, slice, and patch production images and PDF collections securely right within your web browser environment. No telemetry data leaks.">
-    <meta property="og:url" content="https://imagetools.studio/">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://imagetools.studio/assets/og-cover-landing.png">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ImageTools Studio | Production Grade File Assets Suite">
-    <meta name="twitter:description" content="Process complex assets locally with lossless canvas engines entirely inside your client frame. Zero uploads, zero telemetry latency.">
-    <meta name="twitter:image" content="https://imagetools.studio/assets/og-cover-landing.png">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="saas-premium.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebApplication",
-          "@id": "https://imagetools.studio/#webapp",
-          "url": "https://imagetools.studio/",
-          "name": "ImageTools Studio",
-          "applicationCategory": "MultimediaApplication",
-          "operatingSystem": "All",
-          "browserRequirements": "Requires HTML5 Canvas, FileAPI, and WebAssembly capabilities.",
-          "offers": {
-            "@type": "Offer",
-            "price": "0.00",
-            "priceCurrency": "USD"
-          }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": "https://imagetools.studio/#breadcrumb",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://imagetools.studio/"
-            }
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://imagetools.studio/#faq",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Are my files uploaded or stored on any server infrastructure?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No. ImageTools Studio operates entirely using client-side execution via local sandboxed Canvas and JavaScript engines. Your private media files never leave your device."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Is there a hidden operational capacity cost limit on processing pipelines?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "All tools across ImageTools Studio are completely free for use without volume caps, subscription paywalls, or feature access restrictions."
-              }
-            }
-          ]
-        }
-      ]
-    }
-    </script>
 </head>
 <body>
 
@@ -104,7 +32,7 @@
         <section class="saas-hero" aria-labelledby="hero-title">
             <h1 id="hero-title" class="gradient-headline">Next-Generation<br>Client Media Suite</h1>
             <p class="hero-subtitle">
-                Process images, convert code-bases, and manage PDF data structures completely within memory. 100% local processing speed. Absolute file privacy isolation.
+                Process images, convert codebases, and manage PDF data structures completely within local memory. 100% browser sandboxed. Absolute data isolation.
             </p>
             <div class="hero-actions">
                 <a href="#tools-dashboard-section" class="btn-primary">Get Started - Free</a>
@@ -112,29 +40,7 @@
             </div>
         </section>
 
-        <section class="telemetry-section" aria-label="Platform Telemetry Metrics Grid">
-            <div class="telemetry-grid">
-                <div class="telemetry-card">
-                    <div class="telemetry-counter" data-target="52480" data-suffix="+">0</div>
-                    <div class="telemetry-label">Files Processed</div>
-                </div>
-                <div class="telemetry-card">
-                    <div class="telemetry-value-static color-blue">100%</div>
-                    <div class="telemetry-label">Browser Sandboxed</div>
-                </div>
-                <div class="telemetry-card">
-                    <div class="telemetry-value-static color-green">0</div>
-                    <div class="telemetry-label">Server Uploads</div>
-                </div>
-                <div class="telemetry-card">
-                    <div class="telemetry-value-static color-purple">Instant</div>
-                    <div class="telemetry-label">Local Render Run</div>
-                </div>
-            </div>
-        </section>
-
         <section id="tools-dashboard-section" class="dashboard-section" aria-label="Application Tools Engine Terminal">
-            
             <div class="search-container-wrap">
                 <div class="search-glass-input-wrapper">
                     <svg class="search-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -177,14 +83,13 @@
                     </div>
                 </div>
 
-                <div id="workspace-controls-area" class="workspace-controls-area hidden-element">
-                    </div>
+                <div id="workspace-controls-area" class="workspace-controls-area hidden-element"></div>
 
                 <div id="workspace-preview-area" class="workspace-preview-area hidden-element">
-                    <h4 style="margin-bottom: 12px; color: #ffffff;">Live Processing Output Map Preview</h4>
+                    <h4 style="margin-bottom: 16px; color: #ffffff;">Live Processing Output Map Preview</h4>
                     <div class="comparison-container-slider" id="ui-comparison-slider-node">
-                        <div class="comparison-img-layer" id="preview-layer-before" style="background-image: url('');"></div>
-                        <div class="comparison-img-layer" id="preview-layer-after" style="background-image: url(''); width: 50%;"></div>
+                        <div class="comparison-img-layer" id="preview-layer-before"></div>
+                        <div class="comparison-img-layer" id="preview-layer-after"></div>
                         <div class="comparison-slider-handle" id="slider-split-handle-drag">
                             <div class="comparison-slider-button">↔</div>
                         </div>
@@ -195,135 +100,11 @@
                 </div>
             </div>
         </section>
-
-        <section id="why-choose-us-section" class="why-choose-us-section" aria-labelledby="wcu-title">
-            <div class="wcu-container">
-                <div class="section-center-header">
-                    <h2 id="wcu-title" class="section-heading-text">Architected for Speed & Absolute Security</h2>
-                    <p class="section-subheading-text">Why industry leaders process files locally on the device instead of sending data to remote servers.</p>
-                </div>
-                <div class="wcu-grid-layout">
-                    <div class="wcu-card">
-                        <div class="wcu-icon">⚡</div>
-                        <h3 class="wcu-card-title">Fast Processing</h3>
-                        <p class="wcu-card-desc">Processes files directly inside your browser frame, skipping networks uploads to deliver instant execution results.</p>
-                    </div>
-                    <div class="wcu-card">
-                        <div class="wcu-icon">🔒</div>
-                        <h3 class="wcu-card-title">100% Private Protection</h3>
-                        <p class="wcu-card-desc">Your media logs and processing data structures stay completely isolated inside local memory variables.</p>
-                    </div>
-                    <div class="wcu-card">
-                        <div class="wcu-icon">🌍</div>
-                        <h3 class="wcu-card-title">Browser Based Runtime</h3>
-                        <p class="wcu-card-desc">No local native executable installations required. Runs seamlessly across any modern web browser environment.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="faq-section" class="faq-section-wrapper" aria-labelledby="faq-title">
-            <h2 id="faq-title" class="faq-main-heading">Frequently Asked Questions</h2>
-            <div class="faq-accordion-stack">
-                <details open>
-                    <summary><span>Are my sensitive operational files uploaded to any servers?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>No. Absolutely zero network payload delivery protocols are registered within conversion routines. Files are read exclusively via the HTML5 File System API directly into volatile client memory space, processed inside decoupled context canvases, and garbage-collected automatically upon terminal execution.</p>
-                </details>
-                <details>
-                    <summary><span>Is there a volume limit on how many files I can process simultaneously?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>No. Because all data calculations take place right on your own machine without using remote server resources, there are no batch limits or hidden monthly caps. You can convert or compress files indefinitely.</p>
-                </details>
-                <details>
-                    <summary><span>How does the local PDF compression engine work?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>The engine inspects structural vector objects and raster streams inside the container using PDF.js. It resamples embedded image resources onto a lower-scale canvas bounding-box layer before rebuilding the output document stream via jsPDF.</p>
-                </details>
-                <details>
-                    <summary><span>Can I run these tools offline without an active internet connection?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>Yes. Once the app shell caches in your browser, the scripts work entirely offline. No active server connections are required to compress, convert, or adjust your files.</p>
-                </details>
-                <details>
-                    <summary><span>Does using this tool degrade structural metadata?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>Standard HTML5 canvas extraction normally strips metadata tags for optimization. If you need to evaluate or preserve these profiles, use our dedicated Metadata Viewer tool before processing your files.</p>
-                </details>
-                <details>
-                    <summary><span>What file formats are supported by the image conversion tool?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>The app fully reads and processes PNG, JPEG, JPG, WEBP, SVG, BMP, ICO, and GIF files using browser-native decoding wrappers.</p>
-                </details>
-                <details>
-                    <summary><span>Will my images look blurry after using the Image Compressor?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>Our compressor balances quality and size. It uses smart optimization curves to discard imperceptible color data, significantly dropping file size while keeping visual details sharp.</p>
-                </details>
-                <details>
-                    <summary><span>Is there an enterprise API configuration available?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>Because this platform is designed to be serverless and run entirely on the client side, there are no remote API endpoints. To integrate these features, you can drop the core processing scripts directly into your local client applications.</p>
-                </details>
-                <details>
-                    <summary><span>How does the platform handle password-protected PDFs?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>For security reasons, password-protected files cannot be decrypted on the fly. You will need to unlock the PDF file before using the merge, split, or compress tools.</p>
-                </details>
-                <details>
-                    <summary><span>Does this platform store cache files inside the browser long term?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>No. All processed files are temporarily converted into blob references and cleared immediately when you close or refresh the browser tab, keeping your system storage clean.</p>
-                </details>
-                <details>
-                    <summary><span>Is the platform fully compatible with mobile operating systems?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>Yes. The responsive UI is optimized for touch controls on Android and iOS devices, allowing you to process images and PDFs directly through mobile browsers.</p>
-                </details>
-                <details>
-                    <summary><span>Why choose this platform over tools like iLoveIMG or SmallPDF?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>While commercial tools process files on cloud servers—which risks data exposure—ImageTools Studio processes your files locally on your device for absolute data privacy.</p>
-                </details>
-                <details>
-                    <summary><span>What is the maximum file size supported by the canvas converter?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>There is no arbitrary size cap. The tool can handle large images up to your browser's physical memory boundaries and maximum canvas dimension limits.</p>
-                </details>
-                <details>
-                    <summary><span>Does this application contain dynamic tracking algorithms?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>No. We do not use user behavioral telemetry trackers, or fingerprinting cookies. Your data, workspace state, and processed metrics stay completely inside your local browser tab session.</p>
-                </details>
-                <details>
-                    <summary><span>How can I save my customized color palettes or configurations?</span><span class="faq-icon-marker">↓</span></summary>
-                    <p>You can copy generated palettes as HEX standard text arrays. To keep things clean and private, workspace states are not stored in permanent browser databases.</p>
-                </details>
-            </div>
-        </section>
     </main>
 
     <footer class="saas-footer-layer">
-        <div class="footer-columns-grid">
-            <div class="footer-brand-column">
-                <h3 class="footer-brand-logo">ImageTools Studio</h3>
-                <p class="footer-brand-text">Next-gen asset pipelines operating inside sandboxed local device execution frames.</p>
-            </div>
-            <div>
-                <h4 class="footer-title">Tools Grid</h4>
-                <ul class="footer-links-list">
-                    <li><a href="#tools-dashboard-section">Image Compressor</a></li>
-                    <li><a href="#tools-dashboard-section">PDF Merge Engine</a></li>
-                    <li><a href="#tools-dashboard-section">Format Converter</a></li>
-                    <li><a href="#tools-dashboard-section">QR Generator</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="footer-title">Company</h4>
-                <ul class="footer-links-list">
-                    <li><a href="about-us.html">About Operations</a></li>
-                    <li><a href="contact.html">Contact Channels</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="footer-title">Legal Desk</h4>
-                <ul class="footer-links-list">
-                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                    <li><a href="terms-of-service.html">Terms of Service</a></li>
-                    <li><a href="cookie-policy.html">Cookie Profile</a></li>
-                    <li><a href="disclaimer.html">Disclaimer Notice</a></li>
-                </ul>
-            </div>
-        </div>
         <div class="footer-bottom-bar">
             <p>&copy; 2026 ImageTools Studio. Sandboxed Client Runtime Architecture. All Rights Reserved.</p>
-            <p class="adsense-tracker-text">AdSense Network Host Validation Complete</p>
         </div>
     </footer>
 
