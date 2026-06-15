@@ -3,318 +3,693 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ImageTools Studio | Enterprise Media Suite</title>
-    <meta name="description" content="Professional-grade, 100% browser-based suite for image compression, PDF operations, QR generation, and advanced filters — zero uploads, full privacy.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <title>ImageTools Studio | Ultimate Media Processing Suite</title>
+    <meta name="description" content="Professional-grade, 100% browser-based suite for lightning-fast image compression, conversions, PDF splits, joins, QR code generation, and filters - zero uploads, absolute privacy.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root {
-            --bg-dark-base: #0b0f19;
-            --bg-dark-surface: #131b2e;
-            --bg-dark-elevation: #1e2942;
-            --accent-primary: #3b82f6;
-            --accent-secondary: #8b5cf6;
-            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-glass: rgba(255, 255, 255, 0.06);
-            --transition-premium: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg-dark-base); color: var(--text-main); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        :root {
+            --bg-deep: #0a0c15;
+            --bg-surface: #111827;
+            --bg-elevated: #1a2538;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-gradient: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
+            --text-white: #ffffff;
+            --text-gray: #9ca3af;
+            --border-glow: rgba(6, 182, 212, 0.3);
+            --card-bg: rgba(17, 24, 39, 0.7);
+        }
 
-        /* Sticky Navbar Styles */
-        .saas-navbar { position: sticky; top: 0; z-index: 1000; background: rgba(11, 15, 24, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-glass); }
-        .navbar-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; flex-wrap: wrap; gap: 16px; }
-        .platform-logo { font-family: 'Montserrat', sans-serif; text-decoration: none; font-weight: 800; font-size: 1.5rem; color: #ffffff; }
-        .logo-accent { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .nav-links { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: var(--transition-premium); }
-        .nav-links a:hover { color: var(--accent-primary); }
-        .cta-nav-button { background: var(--accent-gradient); color: white !important; padding: 8px 20px; border-radius: 40px; font-weight: 600; }
+        body {
+            background: var(--bg-deep);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 30%, rgba(6,182,212,0.08), transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(139,92,246,0.08), transparent 50%);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 12, 21, 0.8);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .nav-btn {
+            background: var(--accent-gradient);
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            color: white !important;
+            font-weight: 600;
+        }
 
         /* Hero Section */
-        .saas-hero { padding: 100px 24px 60px; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.12), transparent 70%); }
-        .gradient-headline { font-family: 'Montserrat', sans-serif; font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; line-height: 1.2; margin-bottom: 20px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-subtitle { color: var(--text-muted); max-width: 650px; margin: 0 auto 32px; font-size: 1.1rem; line-height: 1.5; }
-        .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-        .btn-primary, .btn-secondary { padding: 12px 28px; border-radius: 40px; font-weight: 600; text-decoration: none; transition: var(--transition-premium); display: inline-block; }
-        .btn-primary { background: var(--accent-gradient); color: white; box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
-        .btn-secondary { border: 1px solid var(--border-glass); color: var(--text-muted); background: rgba(255,255,255,0.02); }
-        .btn-primary:hover, .btn-secondary:hover { transform: translateY(-2px); }
+        .hero {
+            text-align: center;
+            padding: 5rem 1.5rem;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(6,182,212,0.15);
+            border: 1px solid rgba(6,182,212,0.4);
+            border-radius: 100px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, #06b6d4, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(6,182,212,0.4);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
 
         /* Dashboard Section */
-        .dashboard-section { max-width: 1400px; margin: 0 auto; padding: 20px 24px; }
-        .search-container-wrap { max-width: 650px; margin: 0 auto 32px; }
-        .search-glass-input-wrapper { position: relative; background: var(--bg-dark-surface); border: 1px solid var(--border-glass); border-radius: 60px; display: flex; align-items: center; }
-        .search-input-field { width: 100%; background: transparent; border: none; outline: none; color: #ffffff; padding: 14px 20px 14px 50px; font-size: 1rem; }
-        .search-icon-svg { position: absolute; left: 18px; color: var(--text-muted); }
-        .clear-btn-engine { position: absolute; right: 18px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; opacity: 0.7; }
+        .dashboard {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
 
-        .category-tabs-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
-        .category-tab { background: var(--bg-dark-surface); border: 1px solid var(--border-glass); color: var(--text-muted); padding: 10px 24px; border-radius: 40px; cursor: pointer; font-weight: 500; transition: var(--transition-premium); }
-        .category-tab.active { background: var(--accent-gradient); color: #ffffff; border-color: transparent; }
-        .category-tab:hover:not(.active) { border-color: var(--accent-primary); color: white; }
+        /* Search Bar */
+        .search-wrapper {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
 
-        /* Tool Grid */
-        .tool-grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin: 0 auto; }
-        .tool-card-wrapper { background: var(--bg-dark-surface); border: 1px solid var(--border-glass); border-radius: 24px; padding: 24px; cursor: pointer; transition: var(--transition-premium); }
-        .tool-card-wrapper:hover { transform: translateY(-5px); background: var(--bg-dark-elevation); border-color: var(--accent-primary); }
-        .tool-card-icon-frame { font-size: 2.5rem; margin-bottom: 16px; }
-        .tool-card-title-text { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
-        .tool-card-desc-text { color: var(--text-muted); font-size: 0.85rem; line-height: 1.4; }
+        .search-glass {
+            background: var(--bg-surface);
+            border: 1px solid rgba(6,182,212,0.3);
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .search-glass input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.8rem 1rem;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-glass svg {
+            margin-left: 0.5rem;
+            color: var(--text-gray);
+            cursor: pointer;
+        }
+
+        /* Category Tabs */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: var(--bg-surface);
+            border: 1px solid rgba(6,182,212,0.2);
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            color: var(--text-gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .category-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(6,182,212,0.4);
+        }
+
+        /* Tool Grid - Beautiful Cards */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(6,182,212,0.15);
+            border-radius: 28px;
+            padding: 1.8rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6,182,212,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .tool-card:hover::before {
+            left: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 35px -12px rgba(6,182,212,0.2);
+        }
+
+        .tool-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
 
         /* Workspace Panel */
-        .workspace-panel-container { max-width: 1100px; margin: 40px auto 60px; padding: 0 24px; }
-        .workspace-card-inner { background: var(--bg-dark-surface); border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; padding: 32px; backdrop-filter: blur(4px); }
-        .workspace-header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-        .workspace-title { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; color: #fff; }
-        .close-workspace-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: var(--text-muted); padding: 8px 18px; border-radius: 40px; cursor: pointer; transition: var(--transition-premium); }
-        .close-workspace-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-        .divider-line { border: 0; height: 1px; background: var(--border-glass); margin-bottom: 24px; }
+        .workspace {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .workspace-card {
+            background: linear-gradient(135deg, rgba(17,24,39,0.95), rgba(10,12,21,0.95));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(6,182,212,0.3);
+            border-radius: 2rem;
+            padding: 2rem;
+            transition: 0.3s;
+        }
+
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .workspace-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .close-workspace {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-workspace:hover {
+            background: rgba(255,0,0,0.2);
+            border-color: #ff4444;
+            color: white;
+        }
 
         /* Upload Zone */
-        .premium-uploader-zone { border: 2px dashed rgba(255,255,255,0.2); background: rgba(11,15,25,0.4); border-radius: 24px; padding: 48px 24px; text-align: center; cursor: pointer; transition: var(--transition-premium); margin-bottom: 20px; }
-        .premium-uploader-zone:hover { border-color: var(--accent-primary); background: rgba(59,130,246,0.05); }
-        .hidden-file-input { display: none; }
-        .uploader-icon-frame { font-size: 2.8rem; margin-bottom: 12px; }
-        .uploader-main-text { font-weight: 600; color: #fff; margin-bottom: 4px; }
-        .text-gradient-trigger { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .uploader-sub-text { color: var(--text-muted); font-size: 0.8rem; }
+        .upload-zone {
+            border: 2px dashed rgba(6,182,212,0.4);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: rgba(6,182,212,0.02);
+            margin-bottom: 1.5rem;
+        }
 
-        /* Controls Area */
-        .workspace-controls-area { margin-top: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); padding: 24px; border-radius: 20px; }
-        .control-group { margin-bottom: 20px; }
-        .control-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; color: #e2e8f0; }
-        .control-input { width: 100%; background: var(--bg-dark-base); border: 1px solid var(--border-glass); padding: 12px 16px; border-radius: 12px; color: #fff; outline: none; font-size: 0.95rem; }
-        .control-input[type="range"] { padding: 0; height: 6px; cursor: pointer; }
+        .upload-zone:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(6,182,212,0.08);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Controls */
+        .controls-area {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 1.2rem;
+        }
+
+        .control-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--accent-cyan);
+        }
+
+        .control-group input {
+            width: 100%;
+            background: var(--bg-deep);
+            border: 1px solid rgba(6,182,212,0.3);
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+        }
+
+        input[type="range"] {
+            padding: 0;
+            height: 6px;
+        }
+
+        .action-btn {
+            background: var(--accent-gradient);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
 
         /* Comparison Slider */
-        .comparison-container-slider { position: relative; width: 100%; height: 420px; overflow: hidden; border-radius: 20px; background: #0a0f18; border: 1px solid var(--border-glass); user-select: none; margin: 20px 0; }
-        .comparison-img-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #0f1420; }
-        #preview-layer-before { z-index: 1; }
-        #preview-layer-after { z-index: 2; width: 50%; border-right: 3px solid var(--accent-primary); box-shadow: 0 0 12px rgba(59,130,246,0.4); }
-        .comparison-slider-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 0; z-index: 10; pointer-events: none; }
-        .comparison-slider-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 46px; height: 46px; background: #ffffff; border: 3px solid var(--accent-primary); border-radius: 50%; color: #0b0f19; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.4); cursor: ew-resize; pointer-events: auto; transition: transform 0.1s; }
-        .comparison-slider-button:active { transform: translate(-50%, -50%) scale(0.94); }
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            background: #000;
+            margin: 1rem 0;
+        }
 
-        .preview-download-footer-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
-        .btn-gradient-cta { background: var(--accent-gradient); border: none; color: white; padding: 14px 32px; border-radius: 40px; font-weight: 700; cursor: pointer; transition: var(--transition-premium); font-size: 0.95rem; }
-        .btn-gradient-cta:hover { transform: translateY(-2px); opacity: 0.95; }
+        .slider-before, .slider-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-        .hidden-workspace { display: none !important; }
-        .hidden-element { display: none !important; }
-        .search-no-results-box { display: none; text-align: center; padding: 40px; background: var(--bg-dark-surface); border-radius: 28px; margin: 20px auto; }
-        .saas-footer-layer { text-align: center; padding: 30px 24px; border-top: 1px solid var(--border-glass); margin-top: 60px; color: var(--text-muted); font-size: 0.85rem; }
-        
+        .slider-after {
+            width: 50%;
+            border-right: 3px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6,182,212,0.5);
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: ew-resize;
+            pointer-events: auto;
+            color: var(--bg-deep);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .download-area {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-surface);
+            border-radius: 2rem;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(6,182,212,0.2);
+            margin-top: 4rem;
+            color: var(--text-gray);
+        }
+
         @media (max-width: 768px) {
-            .navbar-container { flex-direction: column; }
-            .workspace-card-inner { padding: 20px; }
-            .comparison-container-slider { height: 280px; }
+            .slider-container { height: 280px; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .workspace-card { padding: 1.2rem; }
         }
     </style>
 </head>
 <body>
+<div class="bg-glow"></div>
 
-<header class="saas-navbar">
-    <div class="navbar-container">
-        <a href="#" class="platform-logo"><span class="logo-accent">ImageTools</span> Studio</a>
-        <nav class="nav-links">
-            <a href="#dashboard">Dashboard</a>
-            <a href="#" id="securityBtn">Security Matrix</a>
-            <a href="#" id="faqBtn">FAQ</a>
-            <a href="#dashboard" class="cta-nav-button">Launch Workspace</a>
-        </nav>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">ImageTools Studio</div>
+        <div class="nav-links">
+            <a href="#dashboard">Tools</a>
+            <a href="#" id="securityInfo">🔒 Security</a>
+            <a href="#" id="faqInfo">❓ FAQ</a>
+            <a href="#dashboard" class="nav-btn">Launch</a>
+        </div>
     </div>
-</header>
+</nav>
 
-<main>
-    <section class="saas-hero">
-        <h1 class="gradient-headline">Next-Generation<br>Client Media Suite</h1>
-        <p class="hero-subtitle">Process images, merge PDFs, generate QR codes — all inside your browser. Zero uploads, military-grade privacy, unlimited batch processing.</p>
-        <div class="hero-actions">
-            <a href="#dashboard" class="btn-primary">Get Started — Free</a>
-            <a href="#" id="heroSecurityBtn" class="btn-secondary">Security Matrix →</a>
+<section class="hero">
+    <div class="hero-badge">✨ 100% Browser-Based • No Uploads</div>
+    <h1>Next-Gen<br>Media Processing</h1>
+    <p>Compress, convert, merge, split, generate QR codes, apply filters — all inside your browser. Zero data leaves your device.</p>
+    <div class="hero-buttons">
+        <a href="#dashboard" class="btn-primary">✨ Start Creating</a>
+        <a href="#" id="learnMore" class="btn-secondary">How It Works →</a>
+    </div>
+</section>
+
+<section id="dashboard" class="dashboard">
+    <div class="search-wrapper">
+        <div class="search-glass">
+            <input type="text" id="searchInput" placeholder="Search tools... (compressor, pdf, qr, filter)">
+            <svg id="clearSearch" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </div>
-    </section>
+    </div>
+    <div class="categories">
+        <button class="category-btn active" data-cat="all">🔥 All Tools</button>
+        <button class="category-btn" data-cat="image">🖼️ Image Tools</button>
+        <button class="category-btn" data-cat="pdf">📑 PDF Tools</button>
+        <button class="category-btn" data-cat="utility">⚡ Utility</button>
+    </div>
+    <div id="toolsGrid" class="tools-grid"></div>
+    <div id="noResults" class="no-results">🔍 No tools found. Try different keywords.</div>
+</section>
 
-    <section id="dashboard" class="dashboard-section">
-        <div class="search-container-wrap">
-            <div class="search-glass-input-wrapper">
-                <svg class="search-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="global-search-input" class="search-input-field" placeholder="Search tools (compressor, pdf, qr, brightness...)">
-                <button id="clear-search-btn" class="clear-btn-engine">✕</button>
+<section id="workspace" class="workspace hidden">
+    <div class="workspace-card">
+        <div class="workspace-header">
+            <h2 id="workspaceTitle">Tool Studio</h2>
+            <button class="close-workspace" onclick="closeWorkspace()">✕ Close</button>
+        </div>
+        <div id="uploadZone" class="upload-zone">
+            <div class="upload-icon">📂</div>
+            <p>Drag & drop files here or <strong style="color:#06b6d4;">browse</strong></p>
+            <small>Images (JPG, PNG, SVG) | PDF files | 100% local</small>
+            <input type="file" id="fileInput" multiple style="display:none;">
+        </div>
+        <div id="controlsArea" class="controls-area hidden"></div>
+        <div id="previewArea" class="hidden">
+            <div class="slider-container" id="sliderContainer">
+                <div class="slider-before" id="beforeImg"></div>
+                <div class="slider-after" id="afterImg"></div>
+                <div class="slider-handle" id="sliderHandle"><div class="slider-btn">↔</div></div>
+            </div>
+            <div class="download-area">
+                <button id="downloadBtn" class="action-btn" style="width:auto; padding:0.8rem 2rem;">⬇ Download Result</button>
             </div>
         </div>
-        <div class="category-tabs-container">
-            <button class="category-tab active" data-category="all">All Tools</button>
-            <button class="category-tab" data-category="image">Image Tools</button>
-            <button class="category-tab" data-category="pdf">PDF Tools</button>
-            <button class="category-tab" data-category="utility">Utility Tools</button>
-        </div>
-        <div id="search-no-results" class="search-no-results-box"><span style="font-size:2rem;">🔍</span><h3 style="margin-top:12px;">No tools match</h3><p style="color:var(--text-muted);">Try different keywords</p></div>
-        <div id="tools-dashboard-grid" class="tool-grid-layout"></div>
-    </section>
+    </div>
+</section>
 
-    <section id="active-workspace-panel" class="workspace-panel-container hidden-workspace">
-        <div class="workspace-card-inner">
-            <div class="workspace-header-actions">
-                <h2 id="active-workspace-title" class="workspace-title">Workspace</h2>
-                <button class="close-workspace-btn" onclick="closeActiveWorkspace()">Close Tool ✕</button>
-            </div>
-            <hr class="divider-line">
-            <div id="premium-uploader-zone" class="premium-uploader-zone">
-                <input type="file" id="core-hidden-file-input" class="hidden-file-input" multiple accept="image/*,application/pdf">
-                <div>
-                    <div class="uploader-icon-frame">📥</div>
-                    <p class="uploader-main-text">Drag & drop files here or <span class="text-gradient-trigger">browse</span></p>
-                    <p class="uploader-sub-text">100% local • No server • Up to 2GB</p>
-                </div>
-            </div>
-            <div id="workspace-controls-area" class="workspace-controls-area hidden-element"></div>
-            <div id="workspace-preview-area" class="workspace-preview-area hidden-element">
-                <h4 style="margin-bottom: 16px; font-weight: 600;">Live Comparison Slider</h4>
-                <div class="comparison-container-slider" id="ui-comparison-slider-node">
-                    <div class="comparison-img-layer" id="preview-layer-before"></div>
-                    <div class="comparison-img-layer" id="preview-layer-after"></div>
-                    <div class="comparison-slider-handle" id="slider-split-handle-drag">
-                        <div class="comparison-slider-button">↔</div>
-                    </div>
-                </div>
-                <div class="preview-download-footer-actions">
-                    <button class="btn-gradient-cta" id="download-processed-blob-btn">Download Result</button>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer class="saas-footer-layer">
-    <p>© 2026 ImageTools Studio — Fully Sandboxed Client Architecture. No data leaves your device.</p>
+<footer>
+    <p>© 2026 ImageTools Studio — Enterprise-grade client-side processing. Your privacy, guaranteed.</p>
 </footer>
 
 <script>
-    // ======================== TOOL REGISTRY & CORE STATE ========================
-    const toolRegistry = [
-        { id: 'compressor', name: 'Image Compressor', category: 'image', desc: 'Reduce JPEG/PNG size with quality control.', icon: '🗜️', keywords: 'shrink,optimize' },
-        { id: 'pdf-merge', name: 'PDF Merger', category: 'pdf', desc: 'Combine multiple PDFs into one document.', icon: '📚', keywords: 'join combine' },
-        { id: 'pdf-split', name: 'PDF Splitter', category: 'pdf', desc: 'Extract first pages from PDF.', icon: '✂️', keywords: 'divide extract' },
-        { id: 'qr-generator', name: 'QR Code Generator', category: 'utility', desc: 'Generate scannable QR codes from text/URL.', icon: '📱', keywords: 'barcode scan' },
-        { id: 'brightness', name: 'Brightness Adjust', category: 'image', desc: 'Lighten or darken images dynamically.', icon: '☀️', keywords: 'exposure light' },
-        { id: 'grayscale', name: 'Grayscale Filter', category: 'image', desc: 'Convert to classic black & white.', icon: '⚫', keywords: 'monochrome' },
-        { id: 'sepia', name: 'Sepia Tone', category: 'image', desc: 'Warm vintage reddish-brown effect.', icon: '📜', keywords: 'retro antique' },
-        { id: 'contrast', name: 'Contrast Boost', category: 'image', desc: 'Enhance shadows and highlights.', icon: '🌗', keywords: 'vivid range' }
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    const tools = [
+        { id: 'compress', name: '🖼️ Smart Compressor', category: 'image', desc: 'Reduce image size up to 80% with quality control.', icon: '🗜️' },
+        { id: 'grayscale', name: '🎨 Grayscale FX', category: 'image', desc: 'Convert to stunning black & white.', icon: '⚫' },
+        { id: 'sepia', name: '📜 Vintage Sepia', category: 'image', desc: 'Warm nostalgic retro tones.', icon: '🕰️' },
+        { id: 'brightness', name: '☀️ Brightness Boost', category: 'image', desc: 'Adjust exposure and lighting.', icon: '✨' },
+        { id: 'contrast', name: '🌗 Contrast Pro', category: 'image', desc: 'Enhance depth and clarity.', icon: '🎯' },
+        { id: 'qr', name: '📱 QR Code Gen', category: 'utility', desc: 'Create custom scannable QR codes.', icon: '🔳' },
+        { id: 'pdf-merge', name: '🔗 PDF Merger', category: 'pdf', desc: 'Combine multiple PDFs into one.', icon: '📚' },
+        { id: 'pdf-split', name: '✂️ PDF Splitter', category: 'pdf', desc: 'Extract first pages from PDF.', icon: '📄' }
     ];
 
-    let appState = { searchQuery: '', activeCategory: 'all', activeToolId: null, currentFiles: [], currentOutputBlob: null };
+    let currentTool = null;
+    let currentFile = null;
+    let currentOutputBlob = null;
+    let currentOriginalUrl = null;
 
-    function buildDashboard() {
-        const grid = document.getElementById('tools-dashboard-grid');
-        if (!grid) return;
-        grid.innerHTML = '';
-        toolRegistry.forEach(tool => {
-            const card = document.createElement('div');
-            card.className = 'tool-card-wrapper';
-            card.setAttribute('data-tool-id', tool.id);
-            card.innerHTML = `<div class="tool-card-icon-frame">${tool.icon}</div><h3 class="tool-card-title-text">${tool.name}</h3><p class="tool-card-desc-text">${tool.desc}</p>`;
-            card.addEventListener('click', () => openWorkspace(tool.id));
-            grid.appendChild(card);
-        });
-        applyFilters();
+    function renderTools(search = '', category = 'all') {
+        const grid = document.getElementById('toolsGrid');
+        const noResults = document.getElementById('noResults');
+        let filtered = tools.filter(t => category === 'all' || t.category === category);
+        if (search) {
+            filtered = filtered.filter(t => t.name.toLowerCase().includes(search) || t.desc.toLowerCase().includes(search));
+        }
+        if (filtered.length === 0) {
+            grid.innerHTML = '';
+            noResults.style.display = 'block';
+            return;
+        }
+        noResults.style.display = 'none';
+        grid.innerHTML = filtered.map(tool => `
+            <div class="tool-card" onclick="openTool('${tool.id}')">
+                <div class="tool-icon">${tool.icon}</div>
+                <h3>${tool.name}</h3>
+                <p>${tool.desc}</p>
+            </div>
+        `).join('');
     }
 
-    function applyFilters() {
-        const cards = document.querySelectorAll('.tool-card-wrapper');
-        const noResults = document.getElementById('search-no-results');
-        let visibleCount = 0;
-        cards.forEach(card => {
-            const toolId = card.getAttribute('data-tool-id');
-            const tool = toolRegistry.find(t => t.id === toolId);
-            if (!tool) return;
-            const matchCategory = appState.activeCategory === 'all' || tool.category === appState.activeCategory;
-            const matchSearch = tool.name.toLowerCase().includes(appState.searchQuery) || tool.desc.toLowerCase().includes(appState.searchQuery);
-            const isVisible = matchCategory && matchSearch;
-            card.style.display = isVisible ? 'flex' : 'none';
-            if (isVisible) visibleCount++;
-        });
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-    }
-
-    function openWorkspace(toolId) {
-        const tool = toolRegistry.find(t => t.id === toolId);
-        if (!tool) return;
-        appState.activeToolId = toolId;
-        appState.currentFiles = [];
-        appState.currentOutputBlob = null;
-        document.getElementById('active-workspace-title').innerText = `${tool.name} Studio`;
-        document.getElementById('active-workspace-panel').classList.remove('hidden-workspace');
-        document.getElementById('workspace-preview-area').classList.add('hidden-element');
-        document.getElementById('workspace-controls-area').classList.add('hidden-element');
+    window.openTool = (toolId) => {
+        currentTool = toolId;
+        currentFile = null;
+        currentOutputBlob = null;
+        if (currentOriginalUrl) URL.revokeObjectURL(currentOriginalUrl);
+        document.getElementById('workspace').classList.remove('hidden');
+        document.getElementById('previewArea').classList.add('hidden');
+        document.getElementById('controlsArea').classList.add('hidden');
+        document.getElementById('uploadZone').style.display = 'block';
+        document.getElementById('fileInput').value = '';
         
-        const uploadZone = document.getElementById('premium-uploader-zone');
-        uploadZone.style.display = 'block';
-        document.getElementById('core-hidden-file-input').value = '';
+        const title = tools.find(t => t.id === toolId)?.name || 'Tool Studio';
+        document.getElementById('workspaceTitle').innerHTML = title;
         
-        if (toolId === 'qr-generator') {
-            uploadZone.style.display = 'none';
-            document.getElementById('workspace-controls-area').classList.remove('hidden-element');
-            document.getElementById('workspace-controls-area').innerHTML = `
-                <div class="control-group"><label>QR Content (URL or Text)</label><input type="text" id="qr-text-input" class="control-input" placeholder="https://imagetools.studio" value="https://imagetools.studio"></div>
-                <button class="btn-gradient-cta" id="generateQRBtn" style="width:100%;">Generate QR Code</button>
+        if (toolId === 'qr') {
+            document.getElementById('uploadZone').style.display = 'none';
+            document.getElementById('controlsArea').classList.remove('hidden');
+            document.getElementById('controlsArea').innerHTML = `
+                <div class="control-group"><label>🔗 Enter Text or URL</label><input type="text" id="qrText" placeholder="https:// or any text..." value="https://imagetools.studio"></div>
+                <button class="action-btn" onclick="generateQR()">✨ Generate QR Code</button>
             `;
-            document.getElementById('generateQRBtn').onclick = () => generateQRCodeFromText();
         } else {
-            setupFileHandlers(toolId);
+            setupFileHandler(toolId);
         }
-    }
+    };
 
-    function setupFileHandlers(toolId) {
-        const fileInput = document.getElementById('core-hidden-file-input');
-        const zone = document.getElementById('premium-uploader-zone');
-        const handleFiles = async (files) => {
+    function setupFileHandler(toolId) {
+        const zone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const handleFiles = (files) => {
             if (!files.length) return;
-            appState.currentFiles = Array.from(files);
-            if (toolId === 'pdf-merge') await executePDFMerge(appState.currentFiles);
-            else if (toolId === 'pdf-split') await executePDFSplit(appState.currentFiles[0]);
-            else if (appState.currentFiles[0]) await processImageWithTool(appState.currentFiles[0], toolId);
+            currentFile = files[0];
+            if (toolId === 'pdf-merge') processPDFMerge(Array.from(files));
+            else if (toolId === 'pdf-split') processPDFSplit(currentFile);
+            else processImage(currentFile, toolId);
         };
-        fileInput.onchange = (e) => handleFiles(Array.from(e.target.files));
-        zone.ondragover = (e) => { e.preventDefault(); zone.style.borderColor = '#3b82f6'; };
-        zone.ondragleave = () => zone.style.borderColor = 'rgba(255,255,255,0.2)';
-        zone.ondrop = (e) => { e.preventDefault(); zone.style.borderColor = 'rgba(255,255,255,0.2)'; handleFiles(Array.from(e.dataTransfer.files)); };
         zone.onclick = () => fileInput.click();
+        zone.ondragover = (e) => { e.preventDefault(); zone.style.borderColor = '#06b6d4'; };
+        zone.ondragleave = () => zone.style.borderColor = 'rgba(6,182,212,0.4)';
+        zone.ondrop = (e) => { e.preventDefault(); zone.style.borderColor = 'rgba(6,182,212,0.4)'; handleFiles(Array.from(e.dataTransfer.files)); };
+        fileInput.onchange = (e) => handleFiles(Array.from(e.target.files));
         
-        if (toolId === 'compressor' || toolId === 'brightness' || toolId === 'grayscale' || toolId === 'sepia' || toolId === 'contrast') {
-            document.getElementById('workspace-controls-area').classList.remove('hidden-element');
-            if (toolId === 'compressor') document.getElementById('workspace-controls-area').innerHTML = `<div class="control-group"><label>Quality: <span id="qualVal">80</span>%</label><input type="range" id="quality-range" min="10" max="100" value="80" class="control-input"></div><button class="btn-gradient-cta" id="applyToolBtn">Apply & Preview</button>`;
-            else if (toolId === 'brightness') document.getElementById('workspace-controls-area').innerHTML = `<div class="control-group"><label>Brightness: <span id="brightVal">+30</span></label><input type="range" id="brightness-range" min="-80" max="80" value="30" class="control-input"></div><button class="btn-gradient-cta" id="applyToolBtn">Apply & Preview</button>`;
-            else if (toolId === 'contrast') document.getElementById('workspace-controls-area').innerHTML = `<div class="control-group"><label>Contrast: <span id="contrastVal">+25</span></label><input type="range" id="contrast-range" min="-50" max="100" value="25" class="control-input"></div><button class="btn-gradient-cta" id="applyToolBtn">Apply & Preview</button>`;
-            else document.getElementById('workspace-controls-area').innerHTML = `<button class="btn-gradient-cta" id="applyToolBtn">Apply ${toolId} Filter</button>`;
-            
-            const applyBtn = document.getElementById('applyToolBtn');
-            if (applyBtn) applyBtn.onclick = () => { if(appState.currentFiles[0]) processImageWithTool(appState.currentFiles[0], toolId); };
-            if (toolId === 'compressor') {
-                const slider = document.getElementById('quality-range');
-                const valSpan = document.getElementById('qualVal');
-                slider.oninput = () => valSpan.innerText = slider.value;
-            }
-            if (toolId === 'brightness') {
-                const slider = document.getElementById('brightness-range');
-                const span = document.getElementById('brightVal');
-                slider.oninput = () => span.innerText = slider.value;
-            }
-            if (toolId === 'contrast') {
-                const slider = document.getElementById('contrast-range');
-                const span = document.getElementById('contrastVal');
-                slider.oninput = () => span.innerText = slider.value;
+        if (toolId !== 'pdf-merge' && toolId !== 'pdf-split') {
+            document.getElementById('controlsArea').classList.remove('hidden');
+            if (toolId === 'compress') {
+                document.getElementById('controlsArea').innerHTML = `<div class="control-group"><label>Quality: <span id="qualVal">75</span>%</label><input type="range" id="quality" min="10" max="100" value="75"></div><button class="action-btn" id="applyFilter">Apply & Preview</button>`;
+                document.getElementById('quality').oninput = () => document.getElementById('qualVal').innerText = document.getElementById('quality').value;
+                document.getElementById('applyFilter').onclick = () => { if(currentFile) processImage(currentFile, 'compress'); };
+            } else if (toolId === 'brightness') {
+                document.getElementById('controlsArea').innerHTML = `<div class="control-group"><label>Brightness: <span id="brightVal">+30</span></label><input type="range" id="brightness" min="-80" max="80" value="30"></div><button class="action-btn" id="applyFilter">Apply & Preview</button>`;
+                document.getElementById('brightness').oninput = () => document.getElementById('brightVal').innerText = document.getElementById('brightness').value;
+                document.getElementById('applyFilter').onclick = () => { if(currentFile) processImage(currentFile, 'brightness'); };
+            } else if (toolId === 'contrast') {
+                document.getElementById('controlsArea').innerHTML = `<div class="control-group"><label>Contrast: <span id="contVal">+30</span></label><input type="range" id="contrast" min="-50" max="100" value="30"></div><button class="action-btn" id="applyFilter">Apply & Preview</button>`;
+                document.getElementById('contrast').oninput = () => document.getElementById('contVal').innerText = document.getElementById('contrast').value;
+                document.getElementById('applyFilter').onclick = () => { if(currentFile) processImage(currentFile, 'contrast'); };
+            } else {
+                document.getElementById('controlsArea').innerHTML = `<button class="action-btn" id="applyFilter">Apply ${tools.find(t=>t.id===toolId)?.name}</button>`;
+                document.getElementById('applyFilter').onclick = () => { if(currentFile) processImage(currentFile, toolId); };
             }
         }
     }
 
-    async function processImageWithTool(file, toolId) {
-        if (!file.type.startsWith('image/')) return alert('Please select an image file');
+    async function processImage(file, type) {
+        if (!file.type.startsWith('image/')) return alert('Please upload an image!');
         const img = await loadImage(file);
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
@@ -322,62 +697,50 @@
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0);
         
-        if (toolId === 'compressor') {
-            const quality = (document.getElementById('quality-range')?.value || 80) / 100;
-            canvas.toBlob(blob => { showPreview(img.src, URL.createObjectURL(blob)); appState.currentOutputBlob = blob; }, 'image/jpeg', quality);
-        } else if (toolId === 'grayscale') {
+        if (type === 'compress') {
+            const quality = (document.getElementById('quality')?.value || 75) / 100;
+            canvas.toBlob(blob => showResult(img.src, URL.createObjectURL(blob), blob), 'image/jpeg', quality);
+        } else if (type === 'grayscale') {
             const data = ctx.getImageData(0,0,canvas.width,canvas.height);
-            for(let i=0;i<data.data.length;i+=4){ let g = 0.299*data.data[i] + 0.587*data.data[i+1] + 0.114*data.data[i+2]; data.data[i]=data.data[i+1]=data.data[i+2]=g; }
+            for(let i=0;i<data.data.length;i+=4){ let g = 0.299*data.data[i]+0.587*data.data[i+1]+0.114*data.data[i+2]; data.data[i]=data.data[i+1]=data.data[i+2]=g; }
             ctx.putImageData(data,0,0);
-            canvas.toBlob(blob => { showPreview(img.src, URL.createObjectURL(blob)); appState.currentOutputBlob = blob; }, 'image/png');
-        } else if (toolId === 'sepia') {
-            const data = ctx.getImageData(0,0,canvas.width,canvas.height);
-            for(let i=0;i<data.data.length;i+=4){
-                let r = data.data[i], g = data.data[i+1], b = data.data[i+2];
-                data.data[i] = Math.min(255, r*0.393 + g*0.769 + b*0.189);
-                data.data[i+1] = Math.min(255, r*0.349 + g*0.686 + b*0.168);
-                data.data[i+2] = Math.min(255, r*0.272 + g*0.534 + b*0.131);
-            }
-            ctx.putImageData(data,0,0);
-            canvas.toBlob(blob => { showPreview(img.src, URL.createObjectURL(blob)); appState.currentOutputBlob = blob; }, 'image/png');
-        } else if (toolId === 'brightness') {
-            const offset = parseInt(document.getElementById('brightness-range')?.value || 30);
-            const data = ctx.getImageData(0,0,canvas.width,canvas.height);
-            for(let i=0;i<data.data.length;i+=4){ data.data[i]=Math.min(255,Math.max(0,data.data[i]+offset)); data.data[i+1]=Math.min(255,Math.max(0,data.data[i+1]+offset)); data.data[i+2]=Math.min(255,Math.max(0,data.data[i+2]+offset)); }
-            ctx.putImageData(data,0,0);
-            canvas.toBlob(blob => { showPreview(img.src, URL.createObjectURL(blob)); appState.currentOutputBlob = blob; }, 'image/png');
-        } else if (toolId === 'contrast') {
-            const contrastVal = parseInt(document.getElementById('contrast-range')?.value || 25);
-            const factor = (259 * (contrastVal + 255)) / (255 * (259 - contrastVal));
+            canvas.toBlob(blob => showResult(img.src, URL.createObjectURL(blob), blob), 'image/png');
+        } else if (type === 'sepia') {
             const data = ctx.getImageData(0,0,canvas.width,canvas.height);
             for(let i=0;i<data.data.length;i+=4){
-                data.data[i] = Math.min(255,Math.max(0, factor * (data.data[i] - 128) + 128));
-                data.data[i+1] = Math.min(255,Math.max(0, factor * (data.data[i+1] - 128) + 128));
-                data.data[i+2] = Math.min(255,Math.max(0, factor * (data.data[i+2] - 128) + 128));
+                let r=data.data[i], g=data.data[i+1], b=data.data[i+2];
+                data.data[i]=Math.min(255, r*0.393+g*0.769+b*0.189);
+                data.data[i+1]=Math.min(255, r*0.349+g*0.686+b*0.168);
+                data.data[i+2]=Math.min(255, r*0.272+g*0.534+b*0.131);
             }
             ctx.putImageData(data,0,0);
-            canvas.toBlob(blob => { showPreview(img.src, URL.createObjectURL(blob)); appState.currentOutputBlob = blob; }, 'image/png');
+            canvas.toBlob(blob => showResult(img.src, URL.createObjectURL(blob), blob), 'image/png');
+        } else if (type === 'brightness') {
+            const val = parseInt(document.getElementById('brightness')?.value || 30);
+            const data = ctx.getImageData(0,0,canvas.width,canvas.height);
+            for(let i=0;i<data.data.length;i+=4){
+                data.data[i]=Math.min(255,Math.max(0,data.data[i]+val));
+                data.data[i+1]=Math.min(255,Math.max(0,data.data[i+1]+val));
+                data.data[i+2]=Math.min(255,Math.max(0,data.data[i+2]+val));
+            }
+            ctx.putImageData(data,0,0);
+            canvas.toBlob(blob => showResult(img.src, URL.createObjectURL(blob), blob), 'image/png');
+        } else if (type === 'contrast') {
+            const val = parseInt(document.getElementById('contrast')?.value || 30);
+            const factor = (259 * (val + 255)) / (255 * (259 - val));
+            const data = ctx.getImageData(0,0,canvas.width,canvas.height);
+            for(let i=0;i<data.data.length;i+=4){
+                data.data[i]=Math.min(255,Math.max(0, factor*(data.data[i]-128)+128));
+                data.data[i+1]=Math.min(255,Math.max(0, factor*(data.data[i+1]-128)+128));
+                data.data[i+2]=Math.min(255,Math.max(0, factor*(data.data[i+2]-128)+128));
+            }
+            ctx.putImageData(data,0,0);
+            canvas.toBlob(blob => showResult(img.src, URL.createObjectURL(blob), blob), 'image/png');
         }
     }
 
-    async function generateQRCodeFromText() {
-        const text = document.getElementById('qr-text-input').value;
-        if (!text) return alert('Enter text or URL');
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(text)}`;
-        const img = new Image();
-        img.crossOrigin = "Anonymous";
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = 400;
-            canvas.height = 400;
-            canvas.getContext('2d').drawImage(img, 0, 0, 400, 400);
-            canvas.toBlob(blob => { showPreview('', URL.createObjectURL(blob)); appState.currentOutputBlob = blob; }, 'image/png');
-        };
-        img.src = qrUrl;
-    }
-
-    async function executePDFMerge(files) {
-        const pdfs = files.filter(f => f.type === 'application/pdf');
+    async function processPDFMerge(files) {
+        const pdfs = Array.from(files).filter(f => f.type === 'application/pdf');
         if(pdfs.length < 2) return alert('Select at least 2 PDF files');
         const { jsPDF } = window.jspdf;
         const merged = new jsPDF();
@@ -389,7 +752,7 @@
                 const page = await doc.getPage(i);
                 const view = page.getViewport({scale:1.5});
                 const canvas = document.createElement('canvas');
-                canvas.height = view.height; canvas.width = view.width;
+                canvas.height=view.height; canvas.width=view.width;
                 await page.render({canvasContext: canvas.getContext('2d'), viewport: view}).promise;
                 const imgData = canvas.toDataURL('image/jpeg',1.0);
                 if(!first) merged.addPage();
@@ -398,12 +761,11 @@
             }
         }
         const blob = merged.output('blob');
-        appState.currentOutputBlob = blob;
-        showPreview('', URL.createObjectURL(blob));
-        alert('PDFs merged!');
+        showResult('', URL.createObjectURL(blob), blob);
+        alert('PDFs merged successfully!');
     }
 
-    async function executePDFSplit(file) {
+    async function processPDFSplit(file) {
         if(!file || file.type !== 'application/pdf') return alert('Upload PDF');
         const buf = await file.arrayBuffer();
         const pdfDoc = await pdfjsLib.getDocument({data: buf}).promise;
@@ -414,18 +776,62 @@
             const page = await pdfDoc.getPage(i);
             const view = page.getViewport({scale:1.5});
             const canvas = document.createElement('canvas');
-            canvas.height = view.height; canvas.width = view.width;
+            canvas.height=view.height; canvas.width=view.width;
             await page.render({canvasContext: canvas.getContext('2d'), viewport: view}).promise;
             const img = canvas.toDataURL('image/jpeg');
             if(i!==1) splitDoc.addPage();
             splitDoc.addImage(img,'JPEG',0,0,180,(view.height*180/view.width));
         }
         const blob = splitDoc.output('blob');
-        appState.currentOutputBlob = blob;
-        showPreview('', URL.createObjectURL(blob));
+        showResult('', URL.createObjectURL(blob), blob);
         alert(`Extracted first ${maxPages} pages`);
     }
+
+    window.generateQR = () => {
+        const text = document.getElementById('qrText').value;
+        if(!text) return alert('Enter text or URL');
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(text)}`;
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width=400; canvas.height=400;
+            canvas.getContext('2d').drawImage(img,0,0,400,400);
+            canvas.toBlob(blob => showResult('', URL.createObjectURL(blob), blob), 'image/png');
+        };
+        img.src = qrUrl;
+    };
 
     function loadImage(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
+            reader.onload = (e) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = reject; img.src = e.target.result; };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function showResult(originalUrl, resultUrl, blob) {
+        currentOutputBlob = blob;
+        if (currentOriginalUrl && currentOriginalUrl !== originalUrl) URL.revokeObjectURL(currentOriginalUrl);
+        currentOriginalUrl = originalUrl;
+        document.getElementById('previewArea').classList.remove('hidden');
+        const before = document.getElementById('beforeImg');
+        const after = document.getElementById('afterImg');
+        before.style.backgroundImage = originalUrl ? `url(${originalUrl})` : `url(${resultUrl})`;
+        after.style.backgroundImage = `url(${resultUrl})`;
+        document.getElementById('downloadBtn').onclick = () => {
+            if(currentOutputBlob){
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(currentOutputBlob);
+                a.download = `output_${Date.now()}.png`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+            }
+        };
+        initSlider();
+    }
+
+    function initSlider() {
+        const after = document.getElementById('afterImg');
+        const handle = document.getElementById('sliderHandle');
+        const container
