@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Image Tools Studio</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body data-theme="dark">
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">IMAGE TOOLS STUDIO</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="compress-image.html">Compress</a>
+                <a href="resize-image.html">Resize</a>
+                <a href="about.html">About</a>
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" style="padding-top: 120px;">
+        <div class="workspace glass-card">
+            <h1>Contact Us</h1>
+            <p style="margin-bottom: 30px; color: #64748b;">Have questions or feedback? We'd love to hear from you.</p>
+            
+            <form id="contactForm" class="controls">
+                <div class="control-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="control-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+                <div class="control-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" style="background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); padding: 10px;" placeholder="How can we help?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">IMAGE TOOLS STUDIO</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="compress-image.html">Compress Image</a></li>
+                        <li><a href="resize-image.html">Resize Image</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/app.js"></script>
+</body>
+</html>
